@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://clodnioxsloh4"]
+
+[ext_resource type="Script" uid="uid://bunvliqxfw8br" path="res://scripts/character_data.gd" id="1_v6g7q"]
+[ext_resource type="PackedScene" uid="uid://cdug0v2rbxawu" path="res://assets/characters/team_a/Ortiz/ORTIZ_MODEL.glb" id="1_xabbu"]
+
+[resource]
+script = ExtResource("1_v6g7q")
+character_name = "Ortiz"
+character_type = 1
+model_scene = ExtResource("1_xabbu")
+metadata/_custom_type_script = "uid://bunvliqxfw8br"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://cminxhst4ayfk"]
+
+[ext_resource type="PackedScene" uid="uid://v22xe8baolht" path="res://assets/characters/team_a/Michelle/MICHELLE_MODEL.glb" id="1_akl1w"]
+[ext_resource type="Script" uid="uid://bunvliqxfw8br" path="res://scripts/character_data.gd" id="1_ohcfq"]
+
+[resource]
+script = ExtResource("1_ohcfq")
+character_name = "Michelle"
+model_scene = ExtResource("1_akl1w")
+metadata/_custom_type_script = "uid://bunvliqxfw8br"

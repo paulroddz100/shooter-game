@@ -1,0 +1,170 @@
+[gd_scene format=3 uid="uid://bx7mq8t8hjn7q"]
+
+[ext_resource type="FontFile" uid="uid://diapabmalpcrj" path="res://assets/fonts/Kurland.ttf" id="1_font"]
+[ext_resource type="FontFile" uid="uid://bv55jividpx4f" path="res://assets/fonts/EMPIREST.TTF" id="2_b8bkt"]
+[ext_resource type="Script" uid="uid://wfj6b11wkwx2" path="res://scripts/main_menu_ui.gd" id="2_script"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_npnbc"]
+color = Color(0, 0, 0, 0)
+
+[node name="MainMenuUI" type="Control" unique_id=1583322755]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_script")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1226890762]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0901961, 0.0901961, 0.0901961, 1)
+
+[node name="MainContainer" type="VBoxContainer" parent="." unique_id=1905488538]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -257.0
+offset_bottom = 257.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="MainContainer" unique_id=323713335]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("2_b8bkt")
+theme_override_font_sizes/font_size = 70
+text = "MINI SHOOTER GAME"
+
+[node name="MainMenu" type="VBoxContainer" parent="MainContainer" unique_id=54256138]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="HSeparator1" type="HSeparator" parent="MainContainer/MainMenu" unique_id=1854081825]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxLine_npnbc")
+
+[node name="Option1" type="HBoxContainer" parent="MainContainer/MainMenu" unique_id=1057205280]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="MainContainer/MainMenu/Option1" unique_id=255198515]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 35
+text = "Nombre : "
+
+[node name="NickInput" type="LineEdit" parent="MainContainer/MainMenu/Option1" unique_id=991600524]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 35
+placeholder_text = "TuNickname"
+max_length = 20
+expand_to_text_length = true
+
+[node name="Option2" type="HBoxContainer" parent="MainContainer/MainMenu" unique_id=154844303]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="MainContainer/MainMenu/Option2" unique_id=308107296]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 35
+text = "Equipo : "
+
+[node name="SkinInput" type="LineEdit" parent="MainContainer/MainMenu/Option2" unique_id=1096721862]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 35
+placeholder_text = "aleatorio"
+alignment = 1
+expand_to_text_length = true
+
+[node name="Option3" type="HBoxContainer" parent="MainContainer/MainMenu" unique_id=940084546]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="MainContainer/MainMenu/Option3" unique_id=1283561955]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 35
+text = "Dirección IP : "
+
+[node name="AddressInput" type="LineEdit" parent="MainContainer/MainMenu/Option3" unique_id=2000808160]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 35
+placeholder_text = "127.0.0.1"
+alignment = 1
+expand_to_text_length = true
+
+[node name="HSeparator2" type="HSeparator" parent="MainContainer/MainMenu" unique_id=201967820]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxLine_npnbc")
+
+[node name="Buttons" type="HBoxContainer" parent="MainContainer/MainMenu" unique_id=363284365]
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Host" type="Button" parent="MainContainer/MainMenu/Buttons" unique_id=1961644697]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0.52549, 0, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 35
+text = "ANFITRIÓN"
+flat = true
+
+[node name="Join" type="Button" parent="MainContainer/MainMenu/Buttons" unique_id=382382780]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0.525257, 0, 1)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 35
+text = "UNIRSE"
+flat = true
+
+[node name="Option4" type="HBoxContainer" parent="MainContainer/MainMenu" unique_id=1137886620]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Quit" type="Button" parent="MainContainer/MainMenu/Option4" unique_id=1052217940]
+layout_mode = 2
+theme_override_colors/font_pressed_color = Color(0.858824, 0, 0, 0.862745)
+theme_override_colors/font_hover_color = Color(0.858807, 4.71681e-06, 1.15514e-06, 0.862745)
+theme_override_fonts/font = ExtResource("1_font")
+theme_override_font_sizes/font_size = 35
+text = "SALIR"
+flat = true
+
+[connection signal="pressed" from="MainContainer/MainMenu/Buttons/Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="MainContainer/MainMenu/Buttons/Join" to="." method="_on_join_pressed"]
+[connection signal="pressed" from="MainContainer/MainMenu/Option4/Quit" to="." method="_on_quit_pressed"]

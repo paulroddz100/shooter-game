@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://ccencq0lcd3ph"]
+
+[ext_resource type="Script" uid="uid://bi8re6tdr1ojt" path="res://scripts/multiplayer_chat_ui.gd" id="1_h7x4v"]
+
+[node name="MultiplayerChatUI" type="Control" unique_id=521571873]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 400.0
+offset_bottom = 450.0
+script = ExtResource("1_h7x4v")
+
+[node name="Panel" type="Panel" parent="." unique_id=942122090]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=538215612]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" unique_id=820946947]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="Panel/MarginContainer/VBoxContainer" unique_id=732509860]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Chat Global"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Panel/MarginContainer/VBoxContainer" unique_id=1261618357]
+layout_mode = 2
+
+[node name="Chat" type="TextEdit" parent="Panel/MarginContainer/VBoxContainer" unique_id=994429803]
+layout_mode = 2
+size_flags_vertical = 3
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer/VBoxContainer" unique_id=1633451275]
+layout_mode = 2
+
+[node name="Message" type="LineEdit" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1494577686]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Escribe tu mensaje aquí..."
+max_length = 100
+
+[node name="Send" type="Button" parent="Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1891507687]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(7.821247e-08, 0.23041719, 9.62615e-08, 1)
+text = "Enviar"

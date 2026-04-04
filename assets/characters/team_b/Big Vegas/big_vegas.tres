@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://c6853uym5qw7y"]
+
+[ext_resource type="Script" uid="uid://bunvliqxfw8br" path="res://scripts/character_data.gd" id="1_6jrck"]
+[ext_resource type="PackedScene" uid="uid://6yytrxwljxcu" path="res://assets/characters/team_b/Big Vegas/BIG_VEGAS_MODEL.glb" id="1_fg8tq"]
+
+[resource]
+script = ExtResource("1_6jrck")
+character_name = "Big Vegas"
+team = 1
+character_type = 1
+model_scene = ExtResource("1_fg8tq")
+max_health = 200.0
+metadata/_custom_type_script = "uid://bunvliqxfw8br"
