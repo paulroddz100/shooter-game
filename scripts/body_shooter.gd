@@ -6,6 +6,8 @@ var is_shooting: bool = false
 func _animate_moving(_velocity: Vector3) -> void:
 	var input = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	_is_moving_backward = input.y > 0.3
+	if _character:
+		_character.is_moving_backward = _is_moving_backward
 	
 	apply_rotation(_velocity)
 	
@@ -15,7 +17,7 @@ func _animate_moving(_velocity: Vector3) -> void:
 		else:
 			_play_reverse("RUN_ANIM")
 		return
-	
+		
 	if is_shooting:
 		_play("RUN_GUN_ANIM")
 	else:
@@ -23,7 +25,7 @@ func _animate_moving(_velocity: Vector3) -> void:
 
 func _animate_idle() -> void:
 	if is_shooting:
-		_play("GUNPLAY_ANIM")
+		_play("GUNPLAY_ANIM", 3.0)  # ← x2
 	else:
 		_play("IDLE_ANIM")
 

@@ -64,6 +64,7 @@ func _on_host_pressed(nickname: String, character: String):
 
 func _on_join_pressed(nickname: String, character: String, address: String):
 	main_menu.hide_menu()
+	crosshair.show()
 	Network.join_game(nickname, character, address)
 
 func _add_player(id: int, player_info : Dictionary):

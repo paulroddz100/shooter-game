@@ -15,21 +15,19 @@ func apply_rotation(_velocity: Vector3) -> void:
 	if not parent:
 		return
 	
-	# Calcula el ángulo objetivo
-	var target_angle = atan2(-_velocity.x, -_velocity.z)
-	
-	# Obtiene la dirección relativa a la cámara
-	# Si el jugador retrocede (S), no rota
+	# No rotar si va hacia atrás
 	var input = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	if input.y > 0.3:  # input.y positivo = tecla S presionada
+	if input.y > 0.3:
 		return
 	
 	var new_rotation_y = lerp_angle(
 		parent.rotation.y,
-		target_angle,
+		atan2(-_velocity.x, -_velocity.z),
 		LERP_VELOCITY
 	)
 	parent.rotation.y = new_rotation_y
+	if _character:
+		_character.model_rotation_y = new_rotation_y
 
 func animate(_velocity: Vector3) -> void:
 	if _character.is_dead():
@@ -64,15 +62,20 @@ func play_jump_animation(jump_type: String = "Jump") -> void:
 		"Jump":  _play("IDLE_JUMP_ANIM")
 		"Jump2": _play("RUN_JUMP_ANIM")
 
-func _play(anim_name: String) -> void:
+func _play(anim_name: String, speed: float = 1.0) -> void:
 	if animation_player:
-		_is_playing_reverse = false
-		animation_player.speed_scale = 1.0
 		if animation_player.current_animation != anim_name:
+			animation_player.speed_scale = speed
+			_is_playing_reverse = false
 			animation_player.play(anim_name)
+			if _character:
+				_character.current_animation = anim_name
 
 func _play_reverse(anim_name: String) -> void:
 	if animation_player:
 		if not _is_playing_reverse or animation_player.current_animation != anim_name:
+			animation_player.speed_scale = 1.0
 			_is_playing_reverse = true
 			animation_player.play_backwards(anim_name)
+			if _character:
+				_character.current_animation = "REVERSE_" + anim_name

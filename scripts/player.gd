@@ -8,6 +8,10 @@ const JUMP_VELOCITY = 7
 @onready var nickname: Label3D = $PlayerNick/Nickname
 
 var player_inventory: PlayerInventory
+var current_animation: String = "IDLE_ANIM":
+	set(value):
+		current_animation = value
+		_apply_remote_animation(value)
 
 @export_category("Objects")
 @export var _body: Node3D = null
@@ -25,6 +29,18 @@ var _model_instance: Node3D = null
 
 var can_double_jump = true
 var has_double_jumped = false
+
+var model_rotation_y: float = 0.0:
+	set(value):
+		model_rotation_y = value
+		if not is_multiplayer_authority() and _model_instance:
+			_model_instance.rotation.y = value
+
+var is_moving_backward: bool = false:
+	set(value):
+		is_moving_backward = value
+		if not is_multiplayer_authority() and _body:
+			_body._is_moving_backward = value
 
 func _enter_tree():
 	set_multiplayer_authority(str(name).to_int())
@@ -47,7 +63,17 @@ func _ready():
 			request_inventory_sync.rpc_id(1)
 	
 	$PlayerNick.visible = not is_multiplayer_authority()
-
+	
+	var sync = $MultiplayerSynchronizer
+	var config = SceneReplicationConfig.new()
+	sync.replication_config = config
+	config.add_property(".:position")
+	config.add_property(".:rotation")
+	config.add_property(".:current_animation")
+	config.add_property(".:model_rotation_y")
+	config.add_property(".:is_moving_backward")
+	
+	
 func _physics_process(delta):
 	if not multiplayer.has_multiplayer_peer(): return
 	if not is_multiplayer_authority(): return
@@ -83,8 +109,11 @@ func _physics_process(delta):
 	move_and_slide()
 	_body.animate(velocity)
 	
-	if Input.is_action_just_pressed("shoot"):
+	if Input.is_action_pressed("shoot"):
+		_body.set_shooting(true)
 		_shoot()
+	else:
+		_body.set_shooting(false)
 
 func _process(_delta):
 	if not multiplayer.has_multiplayer_peer(): return
@@ -356,3 +385,17 @@ func _shoot() -> void:
 	if _raycast.is_colliding():
 		var hit = _raycast.get_collider()
 		print("Impacto en: ", hit.name)
+
+
+func _apply_remote_animation(anim_name: String) -> void:
+	if is_multiplayer_authority():
+		return
+	if not _body or not _body.animation_player:
+		return
+	if anim_name.begins_with("REVERSE_"):
+		var real_name = anim_name.replace("REVERSE_", "")
+		_body.animation_player.play_backwards(real_name)
+	else:
+		_body.animation_player.speed_scale = 1.0
+		if _body.animation_player.current_animation != anim_name:
+			_body.animation_player.play(anim_name)
