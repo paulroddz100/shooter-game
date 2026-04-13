@@ -20,6 +20,12 @@ fog_enabled = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnne4"]
 
+[sub_resource type="BoxMesh" id="BoxMesh_hnne4"]
+size = Vector3(90, 3, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hnne4"]
+size = Vector3(90, 3, 0.2)
+
 [node name="Level" type="Node3D" unique_id=1359265925]
 script = ExtResource("1_e1sh7")
 player_scene = ExtResource("1_uvcbi")
@@ -73,3 +79,46 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_hnne4")
 text = "+"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="MuroBorde" type="StaticBody3D" parent="." unique_id=1464321452]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MuroBorde" unique_id=847996785]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3556099, -44.903755)
+mesh = SubResource("BoxMesh_hnne4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MuroBorde" unique_id=764258816]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4282045, -44.776405)
+shape = SubResource("BoxShape3D_hnne4")
+
+[node name="MuroBorde2" type="StaticBody3D" parent="." unique_id=3775509]
+transform = Transform3D(-0.0021293461, 0, 0.99999774, 0, 1, 0, -0.99999774, 0, -0.0021293461, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MuroBorde2" unique_id=1865445932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3556099, -44.903755)
+mesh = SubResource("BoxMesh_hnne4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MuroBorde2" unique_id=295033431]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4282045, -44.776405)
+shape = SubResource("BoxShape3D_hnne4")
+
+[node name="MuroBorde3" type="StaticBody3D" parent="." unique_id=1388650471]
+transform = Transform3D(-0.9999941, 0, -0.0034383028, 0, 1, 0, 0.0034383028, 0, -0.9999941, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MuroBorde3" unique_id=1085462495]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3556099, -44.903755)
+mesh = SubResource("BoxMesh_hnne4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MuroBorde3" unique_id=1301964811]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4282045, -44.776405)
+shape = SubResource("BoxShape3D_hnne4")
+
+[node name="MuroBorde4" type="StaticBody3D" parent="." unique_id=1406946145]
+transform = Transform3D(0.011693503, 0, -0.99993163, 0, 1, 0, 0.99993163, 0, 0.011693503, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MuroBorde4" unique_id=304875460]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3556099, -44.903755)
+mesh = SubResource("BoxMesh_hnne4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MuroBorde4" unique_id=443926350]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4282045, -44.776405)
+shape = SubResource("BoxShape3D_hnne4")

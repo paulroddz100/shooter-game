@@ -3,8 +3,10 @@ class_name BodyBase
 
 const LERP_VELOCITY: float = 0.15
 const LOW_HEALTH_THRESHOLD: float = 0.25
+
 var _is_playing_reverse: bool = false
 var _is_moving_backward: bool = false
+var _is_dead: bool = false
 
 @export_category("Objects")
 @export var _character: CharacterBody3D = null
@@ -14,12 +16,8 @@ func apply_rotation(_velocity: Vector3) -> void:
 	var parent = get_parent()
 	if not parent:
 		return
-	
-	# No rotar si va hacia atrás
-	var input = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	if input.y > 0.3:
+	if not should_rotate():  # ← usa should_rotate() en lugar de leer Input
 		return
-	
 	var new_rotation_y = lerp_angle(
 		parent.rotation.y,
 		atan2(-_velocity.x, -_velocity.z),
@@ -29,19 +27,40 @@ func apply_rotation(_velocity: Vector3) -> void:
 	if _character:
 		_character.model_rotation_y = new_rotation_y
 
+func should_rotate() -> bool:
+	return not _is_moving_backward  # base: bloquea solo retroceso
+
 func animate(_velocity: Vector3) -> void:
-	if _character.is_dead():
-		_play("DEATH_ANIM")
+	if _is_dead:
 		return
 	if not _character.is_on_floor():
-		return
-	if _character.is_low_health():
-		_play("INJURED_ANIM")
 		return
 	if _velocity.length() > 0.1:
 		_animate_moving(_velocity)
 		return
 	_animate_idle()
+
+func play_death_animation() -> void:
+	_is_dead = true
+	_play("DEATH_ANIM")
+
+func play_injured_animation() -> void:
+	if _is_dead:
+		return
+	_play("INJURED_ANIM")
+
+func play_jump_animation(jump_type: String = "Jump") -> void:
+	match jump_type:  # un solo match, sin duplicado
+		"Jump":
+			_play("IDLE_JUMP_ANIM")
+		"Jump2":
+			if _is_moving_backward:
+				_play_reverse("RUN_JUMP_ANIM")
+			else:
+				_play("RUN_JUMP_ANIM")
+
+func reset_death() -> void:
+	_is_dead = false
 
 func _animate_moving(_velocity: Vector3) -> void:
 	apply_rotation(_velocity)
@@ -49,18 +68,6 @@ func _animate_moving(_velocity: Vector3) -> void:
 
 func _animate_idle() -> void:
 	_play("IDLE_ANIM")
-
-func play_jump_animation(jump_type: String = "Jump") -> void:
-	match jump_type:
-		"Jump": _play("IDLE_JUMP_ANIM")
-		"Jump2":
-			if _is_moving_backward:
-				_play_reverse("RUN_JUMP_ANIM")
-			else:
-				_play("RUN_JUMP_ANIM")
-	match jump_type:
-		"Jump":  _play("IDLE_JUMP_ANIM")
-		"Jump2": _play("RUN_JUMP_ANIM")
 
 func _play(anim_name: String, speed: float = 1.0) -> void:
 	if animation_player:
