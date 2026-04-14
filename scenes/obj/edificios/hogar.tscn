@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://dlgqbm1vbd2gg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oiiwr"]
+albedo_color = Color(0.52156866, 1, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_oiiwr"]
+material = SubResource("StandardMaterial3D_oiiwr")
+
+[node name="Hogar" type="Node3D" unique_id=1885015990]
+
+[node name="pared" type="MeshInstance3D" parent="." unique_id=179510295]
+transform = Transform3D(0.07999999, 0, 0, 0, 2.2, 0, 0, 0, 3.6000001, 0, 2.2, 0)
+mesh = SubResource("BoxMesh_oiiwr")
+
+[node name="pared2" type="MeshInstance3D" parent="." unique_id=1380858552]
+transform = Transform3D(0.07999999, 0, 0, 0, 2.2, 0, 0, 0, 3.6000001, 3.5258906, 2.2, 0)
+mesh = SubResource("BoxMesh_oiiwr")
+
+[node name="pared3" type="MeshInstance3D" parent="." unique_id=498270866]
+transform = Transform3D(-3.4969103e-09, 0, -3.6, 0, 2.2, 0, 0.07999999, 0, -1.57361e-07, 1.7689173, 2.2, 1.8101525)
+mesh = SubResource("BoxMesh_oiiwr")
+
+[node name="pared4" type="MeshInstance3D" parent="." unique_id=749615780]
+transform = Transform3D(-3.4969103e-09, 0, -3.6, 0, 0.6403882, 0, 0.07999999, 0, -1.57361e-07, 1.7689173, 2.9848006, -1.7849045)
+mesh = SubResource("BoxMesh_oiiwr")
+
+[node name="pared5" type="MeshInstance3D" parent="." unique_id=455371333]
+transform = Transform3D(-3.49691e-09, 0, -0.9054682, 0, 1.6954566, 0, 0.07999998, 0, -3.9579277e-08, 3.1118567, 1.8402543, -1.7849045)
+mesh = SubResource("BoxMesh_oiiwr")
+
+[node name="pared6" type="MeshInstance3D" parent="." unique_id=1794040254]
+transform = Transform3D(-3.49691e-09, 0, -0.9054682, 0, 1.6954566, 0, 0.07999998, 0, -3.9579277e-08, 0.43395066, 1.8402543, -1.7849045)
+mesh = SubResource("BoxMesh_oiiwr")
+
+[node name="techo" type="MeshInstance3D" parent="." unique_id=310382372]
+transform = Transform3D(-0.053774178, 2.1380548, 0, -0.07972946, -1.4420277, 0, 0, 0, 3.6000001, 2.7656713, 3.8556993, 0)
+mesh = SubResource("BoxMesh_oiiwr")
+
+[node name="techo2" type="MeshInstance3D" parent="." unique_id=1782455629]
+transform = Transform3D(0.05766518, 2.093878, -1.4210855e-14, -0.07696218, 1.5688732, 0, -1.9246075e-16, -7.651282e-15, 3.6000001, 0.7109779, 3.83401, -1.1920929e-07)
+mesh = SubResource("BoxMesh_oiiwr")

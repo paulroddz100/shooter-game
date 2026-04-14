@@ -2,15 +2,17 @@
 
 [ext_resource type="Script" uid="uid://d0dgljwwl463n" path="res://scripts/level.gd" id="1_e1sh7"]
 [ext_resource type="PackedScene" uid="uid://cffjduipbb3s5" path="res://scenes/level/player.tscn" id="1_uvcbi"]
+[ext_resource type="PackedScene" uid="uid://dlgqbm1vbd2gg" path="res://scenes/obj/edificios/hogar.tscn" id="3_wcngd"]
 [ext_resource type="PackedScene" uid="uid://bclq8vh1x2goy" path="res://scenes/ui/inventory_ui.tscn" id="4_x8g2h"]
 [ext_resource type="PackedScene" uid="uid://ccencq0lcd3ph" path="res://scenes/ui/multiplayer_chat_ui.tscn" id="5_x9g3h"]
+[ext_resource type="PackedScene" uid="uid://p0ahmqw12svk" path="res://scenes/obj/vegetacion/arbolito.tscn" id="6_vpf64"]
 [ext_resource type="PackedScene" uid="uid://bx7mq8t8hjn7q" path="res://scenes/ui/main_menu_ui.tscn" id="6_x9g3h"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_r5xs5"]
-size = Vector2(90, 90)
+size = Vector2(60, 60)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o02aj"]
-albedo_color = Color(0, 0.321569, 0.172549, 1)
+albedo_color = Color(0, 0.37254903, 0.17254902, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x3h1o"]
 size = Vector3(90, 0.05, 90)
@@ -19,12 +21,6 @@ size = Vector3(90, 0.05, 90)
 fog_enabled = true
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnne4"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_hnne4"]
-size = Vector3(90, 3, 0.2)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_hnne4"]
-size = Vector3(90, 3, 0.2)
 
 [node name="Level" type="Node3D" unique_id=1359265925]
 script = ExtResource("1_e1sh7")
@@ -41,6 +37,9 @@ surface_material_override/0 = SubResource("StandardMaterial3D_o02aj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/Floor" unique_id=467016583]
 shape = SubResource("BoxShape3D_x3h1o")
+
+[node name="Hogar" parent="Environment/Floor" unique_id=1885015990 instance=ExtResource("3_wcngd")]
+transform = Transform3D(1.5, 0, 0, 0, 1.5, 0, 0, 0, 1.5, 22.655283, -1.5533919, 7.86675)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment" unique_id=824936187]
 environment = SubResource("Environment_qb4jd")
@@ -80,45 +79,11 @@ text = "+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MuroBorde" type="StaticBody3D" parent="." unique_id=1464321452]
+[node name="Arbolito" parent="." unique_id=2044319721 instance=ExtResource("6_vpf64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.030996, 0.21840149, -13.618013)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MuroBorde" unique_id=847996785]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3556099, -44.903755)
-mesh = SubResource("BoxMesh_hnne4")
+[node name="Arbolito2" parent="." unique_id=657487803 instance=ExtResource("6_vpf64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.0288105, 0.25851494, -13.522729)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MuroBorde" unique_id=764258816]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4282045, -44.776405)
-shape = SubResource("BoxShape3D_hnne4")
-
-[node name="MuroBorde2" type="StaticBody3D" parent="." unique_id=3775509]
-transform = Transform3D(-0.0021293461, 0, 0.99999774, 0, 1, 0, -0.99999774, 0, -0.0021293461, 0, 0, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MuroBorde2" unique_id=1865445932]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3556099, -44.903755)
-mesh = SubResource("BoxMesh_hnne4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MuroBorde2" unique_id=295033431]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4282045, -44.776405)
-shape = SubResource("BoxShape3D_hnne4")
-
-[node name="MuroBorde3" type="StaticBody3D" parent="." unique_id=1388650471]
-transform = Transform3D(-0.9999941, 0, -0.0034383028, 0, 1, 0, 0.0034383028, 0, -0.9999941, 0, 0, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MuroBorde3" unique_id=1085462495]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3556099, -44.903755)
-mesh = SubResource("BoxMesh_hnne4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MuroBorde3" unique_id=1301964811]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4282045, -44.776405)
-shape = SubResource("BoxShape3D_hnne4")
-
-[node name="MuroBorde4" type="StaticBody3D" parent="." unique_id=1406946145]
-transform = Transform3D(0.011693503, 0, -0.99993163, 0, 1, 0, 0.99993163, 0, 0.011693503, 0, 0, 0)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MuroBorde4" unique_id=304875460]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3556099, -44.903755)
-mesh = SubResource("BoxMesh_hnne4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="MuroBorde4" unique_id=443926350]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4282045, -44.776405)
-shape = SubResource("BoxShape3D_hnne4")
+[node name="Arbolito3" parent="." unique_id=532374686 instance=ExtResource("6_vpf64")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.319386, 0.1359778, -7.36477)
