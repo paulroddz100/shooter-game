@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://duhoirg78q6r"]
+
+[ext_resource type="PackedScene" uid="uid://dwd3x4xb5si6k" path="res://assets/characters/team_a/Amy/AMY_MODEL.glb" id="1_o7sge"]
+
+[node name="Control" type="Node2D" unique_id=1942534769]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=1016506217]
+offset_top = 1.0
+offset_right = 40.0
+offset_bottom = 41.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=507205309]
+transparent_bg = true
+size = Vector2i(40, 40)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=120206162]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 3)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport" unique_id=425050541]
+light_energy = 1.5
+
+[node name="CharacterContainer" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=985819074]
+
+[node name="AMY_MODEL" parent="SubViewportContainer/SubViewport/CharacterContainer" unique_id=996193536 instance=ExtResource("1_o7sge")]
