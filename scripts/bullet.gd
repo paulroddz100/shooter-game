@@ -59,8 +59,10 @@ func _process(delta: float) -> void:
 	var move = direction * SPEED * delta
 	global_position += move
 	_travelled += move.length()
-
-	if _travelled >= global_position.distance_to(target_point) or _travelled >= MAX_DISTANCE:
+	
+	# ✅ Comparar contra distancia ORIGINAL al target, no la actual
+	var total_distance = start_position.distance_to(target_point)
+	if _travelled >= total_distance or _travelled >= MAX_DISTANCE:
 		_on_impact()
 
 func _on_impact() -> void:

@@ -12,7 +12,7 @@ const CAMERA_BACK_RESET_SPEED = 8.0
 const CAMERA_DISTANCE = 2.5
 const BULLET_SCENE = preload("res://scenes/obj/bullet.tscn")
 const SHOOT_COOLDOWN = 0.15
-const RESPAWN_TIME = 3.0
+const RESPAWN_TIME = 10.0
 
 var _shoot_timer: float = 0.0
 var _is_respawning: bool = false
@@ -51,6 +51,12 @@ var is_moving_backward: bool = false:
 		if not is_multiplayer_authority() and _body:
 			_body._is_moving_backward = value
 
+var is_dead_synced: bool = false:
+	set(value):
+		is_dead_synced = value
+		if _body:
+			_body._is_dead = value
+
 var _camera_yaw: float = 0.0
 var _camera_pitch: float = 0.0
 var _resetting_camera: bool = false
@@ -67,12 +73,15 @@ func _ready():
 		_apply_camera_rotation()
 	var sync = $MultiplayerSynchronizer
 	var config = SceneReplicationConfig.new()
+	
 	sync.replication_config = config
 	config.add_property(".:position")
 	config.add_property(".:rotation")
 	config.add_property(".:current_animation")
 	config.add_property(".:model_rotation_y")
 	config.add_property(".:is_moving_backward")
+	config.add_property(".:is_dead_synced")
+	
 	if is_multiplayer_authority():
 		$SpringArmOffset/SpringArm3D.spring_length = CAMERA_DISTANCE
 
@@ -242,45 +251,44 @@ func take_damage(amount: float, attacker_id: int) -> void:
 	if health <= 0.0:
 		_is_respawning = true
 		_play_death_local()
-		# notificar a todos via level.gd que tiene autoridad del servidor
 		get_tree().current_scene.broadcast_death.rpc(name)
 		await get_tree().create_timer(RESPAWN_TIME).timeout
+		# ✅ único cambio: guard después del await
+		if not is_instance_valid(self):
+			return
 		_is_respawning = false
 		get_tree().current_scene.broadcast_respawn.rpc(name)
 		do_respawn()
 	else:
 		on_hit.rpc()
 
-@rpc("call_local", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func sync_health(new_health: float) -> void:
 	health = new_health
-	print("sync_health recibido en: ", name, " | health: ", health)
 
-@rpc("call_local", "reliable")
+@rpc("any_peer", "call_local", "reliable")
 func on_hit() -> void:
 	if _body:
 		_body.play_injured_animation()
 
-@rpc("any_peer", "reliable")
-func on_death(killer_id: int) -> void:
-	# solo reproduce animación en el cliente remoto, nada más
+@rpc("any_peer", "call_local", "reliable")
+func on_death(_killer_id: int) -> void:
 	_play_death_local()
 
 @rpc("any_peer", "call_local", "reliable")
 func do_respawn() -> void:
-	print("do_respawn en peer: ", multiplayer.get_unique_id(), " para jugador: ", name)
 	_is_respawning = false
 	health = max_health
+	is_dead_synced = false
 	global_transform.origin = _respawn_point
 	velocity = Vector3.ZERO
 	$CollisionShape3D.disabled = false
 	if _body:
 		_body._is_dead = false
 		_body.reset_death()
-		_body.animation_player.play("IDLE_ANIM")
-
-
-
+		_body.animation_player.speed_scale = 1.0
+		# 🧪 TEST: forzar jump al respawnear
+		_body.animation_player.play("IDLE_JUMP_ANIM")
 
 # ── DISPARO ────────────────────────────────────────────────────────────────
 
@@ -314,10 +322,16 @@ func _shoot() -> void:
 			hit_target.take_damage.rpc_id(1, 25.0, multiplayer.get_unique_id())
 
 func _apply_remote_animation(anim_name: String) -> void:
-	if is_multiplayer_authority():
+	if is_multiplayer_authority(): return
+	if not _body or not _body.animation_player: return
+	if _body._is_dead: return
+	if is_multiplayer_authority(): return
+	if not _body or not _body.animation_player: return
+
+	# ✅ Si está muerto, solo permitir la animación de muerte
+	if _body._is_dead and anim_name != "DEATH_ANIM":
 		return
-	if not _body or not _body.animation_player:
-		return
+
 	if anim_name.begins_with("REVERSE_"):
 		var real_name = anim_name.replace("REVERSE_", "")
 		_body.animation_player.speed_scale = 1.0
@@ -328,8 +342,8 @@ func _apply_remote_animation(anim_name: String) -> void:
 			_body.animation_player.play(anim_name)
 
 func _play_death_local() -> void:
-	print("_play_death_local en peer: ", multiplayer.get_unique_id(), " para jugador: ", name, " | llamadas stack: ", get_stack())
 	health = 0.0
+	is_dead_synced = true
 	$CollisionShape3D.disabled = true
 	if _body:
 		_body._is_dead = true

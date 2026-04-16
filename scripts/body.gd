@@ -32,7 +32,18 @@ func animate(_velocity: Vector3) -> void:
 
 func play_death_animation() -> void:
 	_is_dead = true
+	if not animation_player:
+		return
 	_play("DEATH_ANIM")
+	await animation_player.animation_finished
+
+	# ✅ Validar que el nodo sigue siendo válido antes de continuar
+	if not is_instance_valid(animation_player):
+		return
+	if not is_instance_valid(self):
+		return
+
+	animation_player.pause()
 
 func play_injured_animation() -> void:
 	if _is_dead:
@@ -51,6 +62,10 @@ func play_jump_animation(jump_type: String = "Jump") -> void:
 
 func reset_death() -> void:
 	_is_dead = false
+	_is_playing_reverse = false
+	if animation_player:
+		animation_player.speed_scale = 1.0
+		animation_player.play("IDLE_ANIM")
 
 func _animate_moving(_velocity: Vector3) -> void:
 	_play("RUN_ANIM")
