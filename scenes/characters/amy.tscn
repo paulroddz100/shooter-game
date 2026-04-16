@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://b1stp0o6bl22i"]
 
-[ext_resource type="PackedScene" uid="uid://b2he5oug6tf14" path="res://assets/characters/team_a/Amy/AMY_MODEL.glb" id="1_ao4uv"]
+[ext_resource type="PackedScene" uid="uid://dwd3x4xb5si6k" path="res://assets/characters/team_a/Amy/AMY_MODEL.glb" id="1_ao4uv"]
 [ext_resource type="Script" uid="uid://bkb8wh64b1lym" path="res://scripts/body_shooter.gd" id="2_xrck0"]
 
 [node name="AMY_MODEL" unique_id=1639290976 instance=ExtResource("1_ao4uv")]
 
-[node name="Skeleton3D" parent="MAIN" parent_id_path=PackedInt32Array(556791197) index="0" unique_id=1325621319]
+[node name="Skeleton3D" parent="MAIN" parent_id_path=PackedInt32Array(270846301) index="0" unique_id=1667259993]
 bones/0/position = Vector3(0.51777023, -1.2092359, -63.775494)
 bones/0/rotation = Quaternion(-0.6228002, -0.12582912, 0.10587472, 0.76490355)
 bones/1/position = Vector3(-2.2351742e-07, 3.9624279, -0.2742984)
@@ -62,6 +62,7 @@ bones/28/rotation = Quaternion(0.23166154, -0.0057755215, -0.027938548, 0.972378
 bones/29/position = Vector3(0.0038860738, 2.1320817, -1.5926967e-06)
 bones/29/rotation = Quaternion(0.46067083, -0.0019530624, -0.058115657, 0.8856643)
 bones/30/position = Vector3(-0.0070779324, 1.7932289, 5.1967754e-06)
+bones/31/position = Vector3(-4.2240915, 8.897281, -0.030229101)
 bones/31/rotation = Quaternion(0.61890936, -0.37987268, 0.5689766, 0.38589334)
 bones/32/position = Vector3(5.9013555e-06, 8.861012, 6.354061e-06)
 bones/32/rotation = Quaternion(0.40213078, 0.013527453, -0.18666455, 0.89625)

@@ -5,9 +5,6 @@ var is_shooting: bool = false
 var _is_strafing_left: bool = false
 var _is_strafing_right: bool = false
 
-func should_rotate() -> bool:
-	return not _is_moving_backward and not _is_strafing_left and not _is_strafing_right
-
 func _animate_moving(_velocity: Vector3) -> void:
 	var input = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 
@@ -21,7 +18,7 @@ func _animate_moving(_velocity: Vector3) -> void:
 	if _is_strafing_left:
 		_play("LEFT_STRAFE_GUN_ANIM") if is_shooting else _play("LEFT_STRAFE_ANIM")
 		return
-
+	
 	if _is_strafing_right:
 		_play("RIGHT_STRAFE_GUN_ANIM") if is_shooting else _play("RIGHT_STRAFE_ANIM")
 		return
@@ -29,8 +26,6 @@ func _animate_moving(_velocity: Vector3) -> void:
 	if _is_moving_backward:
 		_play_reverse("RUN_GUN_ANIM") if is_shooting else _play_reverse("RUN_ANIM")
 		return
-
-	apply_rotation(_velocity)
 
 	if is_shooting:
 		_play("RUN_GUN_ANIM")

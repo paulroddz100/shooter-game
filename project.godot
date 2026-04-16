@@ -24,7 +24,6 @@ config/icon="uid://bl6rysfifkjyu"
 [autoload]
 
 Network="*res://scripts/network.gd"
-ItemDatabase="*res://scripts/item_database.gd"
 
 [display]
 

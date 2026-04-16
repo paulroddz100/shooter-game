@@ -3,19 +3,20 @@ class_name Character
 
 const NORMAL_SPEED = 6.0
 const SPRINT_SPEED = 10.0
-const JUMP_VELOCITY = 7.0
+const JUMP_VELOCITY = 4.5
 
 const MOUSE_SENSITIVITY = 0.005
 const CAMERA_PITCH_MIN = -40.0
 const CAMERA_PITCH_MAX = 60.0
 const CAMERA_BACK_RESET_SPEED = 8.0
+const CAMERA_DISTANCE = 2.5
 
 @onready var nickname: Label3D = $PlayerNick/Nickname
 @onready var _raycast: RayCast3D = $SpringArmOffset/SpringArm3D/Camera3D/RayCast3D
+@onready var _spring_arm_offset: Node3D = $SpringArmOffset
 
 @export_category("Objects")
 @export var _body: Node3D = null
-@onready var _spring_arm_offset: Node3D = $SpringArmOffset
 
 var current_animation: String = "IDLE_ANIM":
 	set(value):
@@ -53,12 +54,10 @@ func _enter_tree():
 
 func _ready():
 	$PlayerNick.visible = not is_multiplayer_authority()
-
 	if is_multiplayer_authority():
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		_camera_yaw = PI
 		_apply_camera_rotation()
-
 	var sync = $MultiplayerSynchronizer
 	var config = SceneReplicationConfig.new()
 	sync.replication_config = config
@@ -67,11 +66,14 @@ func _ready():
 	config.add_property(".:current_animation")
 	config.add_property(".:model_rotation_y")
 	config.add_property(".:is_moving_backward")
+	
+	if is_multiplayer_authority():
+		$SpringArmOffset/SpringArm3D.spring_length = CAMERA_DISTANCE
 
 func _unhandled_input(event):
 	if not is_multiplayer_authority():
 		return
-	if event is InputEventMouseMotion and Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
+	if event is InputEventMouseMotion:
 		_resetting_camera = false
 		_camera_yaw -= event.relative.x * MOUSE_SENSITIVITY
 		_camera_pitch -= event.relative.y * MOUSE_SENSITIVITY
@@ -81,6 +83,9 @@ func _unhandled_input(event):
 			deg_to_rad(CAMERA_PITCH_MAX)
 		)
 		_apply_camera_rotation()
+		if _model_instance:
+			_model_instance.rotation.y = _camera_yaw - PI
+			model_rotation_y = _camera_yaw - PI
 
 func _physics_process(delta):
 	if not multiplayer.has_multiplayer_peer(): return
@@ -104,19 +109,19 @@ func _physics_process(delta):
 
 	if Input.is_action_pressed("move_backward"):
 		_resetting_camera = true
-
 	if _resetting_camera:
 		_reset_camera_to_back(delta)
 
 	_move()
 	move_and_slide()
-	_body.animate(velocity)
 
-	if Input.is_action_pressed("shoot"):
-		_body.set_shooting(true)
-		_shoot()
-	else:
-		_body.set_shooting(false)
+	if _body:
+		_body.animate(velocity)
+		if Input.is_action_pressed("shoot"):
+			_body.set_shooting(true)
+			_shoot()
+		else:
+			_body.set_shooting(false)
 
 func _process(_delta):
 	if not multiplayer.has_multiplayer_peer(): return
@@ -127,12 +132,13 @@ func freeze():
 	velocity.x = 0
 	velocity.z = 0
 	_current_speed = 0
-	_body.animate(Vector3.ZERO)
+	if _body:
+		_body.animate(Vector3.ZERO)
 
 func _move() -> void:
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var cam_basis = Basis(Vector3.UP, _camera_yaw)
-	var direction = cam_basis * Vector3(input_dir.x, 0, -input_dir.y)
+	var direction = cam_basis * Vector3(-input_dir.x, 0, -input_dir.y)
 	direction = direction.normalized()
 
 	_current_speed = SPRINT_SPEED if Input.is_action_pressed("shift") else NORMAL_SPEED
@@ -140,8 +146,6 @@ func _move() -> void:
 	if direction.length() > 0.1:
 		velocity.x = direction.x * _current_speed
 		velocity.z = direction.z * _current_speed
-		if _body.should_rotate():
-			_body.apply_rotation(velocity)
 	else:
 		velocity.x = move_toward(velocity.x, 0, _current_speed)
 		velocity.z = move_toward(velocity.z, 0, _current_speed)
@@ -151,7 +155,7 @@ func _apply_camera_rotation() -> void:
 	_spring_arm_offset.get_node("SpringArm3D").rotation.x = _camera_pitch
 
 func _reset_camera_to_back(delta: float) -> void:
-	var target_yaw = _body._character.model_rotation_y + PI
+	var target_yaw = model_rotation_y + PI
 	_camera_yaw = lerp_angle(_camera_yaw, target_yaw, CAMERA_BACK_RESET_SPEED * delta)
 	_camera_pitch = lerp(_camera_pitch, 0.0, CAMERA_BACK_RESET_SPEED * delta)
 	_apply_camera_rotation()

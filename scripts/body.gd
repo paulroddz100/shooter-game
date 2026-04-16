@@ -12,23 +12,13 @@ var _is_dead: bool = false
 @export var _character: CharacterBody3D = null
 @export var animation_player: AnimationPlayer = null
 
-func apply_rotation(_velocity: Vector3) -> void:
+func apply_camera_rotation(yaw: float) -> void:
 	var parent = get_parent()
 	if not parent:
 		return
-	if not should_rotate():  # ← usa should_rotate() en lugar de leer Input
-		return
-	var new_rotation_y = lerp_angle(
-		parent.rotation.y,
-		atan2(-_velocity.x, -_velocity.z),
-		LERP_VELOCITY
-	)
-	parent.rotation.y = new_rotation_y
+	parent.rotation.y = yaw - PI
 	if _character:
-		_character.model_rotation_y = new_rotation_y
-
-func should_rotate() -> bool:
-	return not _is_moving_backward  # base: bloquea solo retroceso
+		_character.model_rotation_y = yaw - PI
 
 func animate(_velocity: Vector3) -> void:
 	if _is_dead:
@@ -50,7 +40,7 @@ func play_injured_animation() -> void:
 	_play("INJURED_ANIM")
 
 func play_jump_animation(jump_type: String = "Jump") -> void:
-	match jump_type:  # un solo match, sin duplicado
+	match jump_type:
 		"Jump":
 			_play("IDLE_JUMP_ANIM")
 		"Jump2":
@@ -63,7 +53,6 @@ func reset_death() -> void:
 	_is_dead = false
 
 func _animate_moving(_velocity: Vector3) -> void:
-	apply_rotation(_velocity)
 	_play("RUN_ANIM")
 
 func _animate_idle() -> void:
