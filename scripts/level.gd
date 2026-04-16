@@ -133,3 +133,15 @@ func _load_character_data(character_id: String) -> CharacterData:
 	if character_id in paths:
 		return load(paths[character_id])
 	return null
+
+@rpc("authority", "call_local", "reliable")
+func broadcast_death(player_name: String) -> void:
+	var player = players_container.get_node_or_null(player_name)
+	if player:
+		player._play_death_local()
+
+@rpc("authority", "call_local", "reliable")
+func broadcast_respawn(player_name: String) -> void:
+	var player = players_container.get_node_or_null(player_name)
+	if player:
+		player.do_respawn()
