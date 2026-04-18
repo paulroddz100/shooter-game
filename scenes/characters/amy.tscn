@@ -3,9 +3,9 @@
 [ext_resource type="PackedScene" uid="uid://dwd3x4xb5si6k" path="res://assets/characters/team_a/Amy/AMY_MODEL.glb" id="1_ao4uv"]
 [ext_resource type="Script" uid="uid://bkb8wh64b1lym" path="res://scripts/body_shooter.gd" id="2_xrck0"]
 
-[node name="AMY_MODEL" unique_id=1639290976 instance=ExtResource("1_ao4uv")]
+[node name="AMY_MODEL" unique_id=1358639648 instance=ExtResource("1_ao4uv")]
 
-[node name="Skeleton3D" parent="MAIN" parent_id_path=PackedInt32Array(270846301) index="0" unique_id=1667259993]
+[node name="Skeleton3D" parent="MAIN" parent_id_path=PackedInt32Array(1546370442) index="0" unique_id=1532922928]
 bones/0/position = Vector3(0.51777023, -1.2092359, -63.775494)
 bones/0/rotation = Quaternion(-0.6228002, -0.12582912, 0.10587472, 0.76490355)
 bones/1/position = Vector3(-2.2351742e-07, 3.9624279, -0.2742984)

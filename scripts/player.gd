@@ -13,9 +13,16 @@ const CAMERA_DISTANCE = 2.5
 const BULLET_SCENE = preload("res://scenes/obj/bullet.tscn")
 const SHOOT_COOLDOWN = 0.15
 const RESPAWN_TIME = 10.0
+const AMMO_MAX: int = 50
+const AMMO_RELOAD_TIME: float = 10.0
 
+var _reload_timer: float = 0.0
+var _is_reloading: bool = false
 var _shoot_timer: float = 0.0
 var _is_respawning: bool = false
+var ammo_current : int = 50
+var ammo_reserve : int = 50
+
 
 @onready var nickname: Label3D = $PlayerNick/Nickname
 @onready var _raycast: RayCast3D = $SpringArmOffset/SpringArm3D/Camera3D/RayCast3D
@@ -66,6 +73,7 @@ func _enter_tree():
 	$SpringArmOffset/SpringArm3D/Camera3D.current = is_multiplayer_authority()
 
 func _ready():
+	add_to_group("players")
 	$PlayerNick.visible = not is_multiplayer_authority()
 	if is_multiplayer_authority():
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -103,6 +111,12 @@ func _unhandled_input(event):
 			model_rotation_y = _camera_yaw - PI
 
 func _physics_process(delta):
+	if _is_reloading:
+		_reload_timer -= delta
+		if _reload_timer <= 0.0:
+			_is_reloading = false
+			ammo_current = AMMO_MAX
+			ammo_reserve = AMMO_MAX
 	if not multiplayer.has_multiplayer_peer(): return
 	if not is_multiplayer_authority(): return
 
@@ -137,13 +151,13 @@ func _physics_process(delta):
 
 	if _body:
 		_body.animate(velocity)
-		if Input.is_action_pressed("shoot"):
-			_body.set_shooting(true)
-			if _shoot_timer <= 0.0:
-				_shoot()
-				_shoot_timer = SHOOT_COOLDOWN
-		else:
-			_body.set_shooting(false)
+	if Input.is_action_pressed("shoot") and not _is_reloading:
+		_body.set_shooting(true)
+		if _shoot_timer <= 0.0:
+			_shoot()
+			_shoot_timer = SHOOT_COOLDOWN
+	else:
+		_body.set_shooting(false)
 
 func _process(_delta):
 	if not multiplayer.has_multiplayer_peer(): return
@@ -295,6 +309,14 @@ func do_respawn() -> void:
 func _shoot() -> void:
 	if not is_multiplayer_authority():
 		return
+	if ammo_current <= 0:
+		return
+
+	ammo_current -= 1
+
+	if ammo_current <= 0 and not _is_reloading:
+		_is_reloading = true
+		_reload_timer = AMMO_RELOAD_TIME
 
 	var impact_point: Vector3
 	var hit_target: Character = null
@@ -303,7 +325,6 @@ func _shoot() -> void:
 		impact_point = _raycast.get_collision_point()
 		var hit = _raycast.get_collider()
 		var target = hit if hit is Character else hit.get_parent()
-		print("Raycast golpeó: ", hit.name, " | target es Character: ", target is Character)
 		if target is Character and not target.is_dead():
 			hit_target = target
 	else:
@@ -314,6 +335,12 @@ func _shoot() -> void:
 	var bullet = BULLET_SCENE.instantiate()
 	get_tree().current_scene.add_child(bullet)
 	bullet.setup(muzzle_pos, impact_point)
+
+	if hit_target:
+		if multiplayer.is_server():
+			hit_target.take_damage(25.0, multiplayer.get_unique_id())
+		else:
+			hit_target.take_damage.rpc_id(1, 25.0, multiplayer.get_unique_id())
 
 	if hit_target:
 		if multiplayer.is_server():

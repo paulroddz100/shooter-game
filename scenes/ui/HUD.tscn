@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://b713gkdolerij"]
+
+[ext_resource type="Script" uid="uid://lrks4dh6midx" path="res://scripts/hud.gd" id="1_kw0id"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atyv1"]
+content_margin_left = 6.0
+content_margin_top = 6.0
+content_margin_right = 6.0
+content_margin_bottom = 6.0
+bg_color = Color(0, 0, 0, 0.53333336)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.13333334)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="CanvasLayer" type="CanvasLayer" unique_id=688099910]
+script = ExtResource("1_kw0id")
+
+[node name="Control" type="Control" parent="." unique_id=1163225466]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=819622788]
+layout_direction = 3
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1255.0
+offset_top = 12.0
+offset_right = -1075.0
+offset_bottom = 68.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_atyv1")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer" unique_id=664243494]
+layout_mode = 2
+theme_override_constants/separation = 1
+alignment = 1
+
+[node name="NicknameLabel" type="Label" parent="Control/PanelContainer/VBoxContainer" unique_id=1187607503]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer" unique_id=2011532257]
+layout_mode = 2
+alignment = 1
+
+[node name="LifeContainer" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer/HBoxContainer" unique_id=1620470455]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="HeartIcon" type="TextureRect" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/LifeContainer" unique_id=603340332]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="LifeLabel" type="Label" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/LifeContainer" unique_id=142480752]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "100"
+vertical_alignment = 1
+
+[node name="AmmoContainer" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer/HBoxContainer" unique_id=601675829]
+layout_mode = 2
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="BulletIcon" type="TextureRect" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/AmmoContainer" unique_id=45886608]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+expand_mode = 2
+stretch_mode = 5
+
+[node name="AmmoLabel" type="Label" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/AmmoContainer" unique_id=2054314720]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "30/90"
+vertical_alignment = 1

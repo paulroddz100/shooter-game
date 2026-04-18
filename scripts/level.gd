@@ -7,6 +7,11 @@ extends Node3D
 @onready var multiplayer_chat: MultiplayerChatUI = $MultiplayerChatUI
 @onready var crosshair: CanvasLayer = $CanvasLayer
 
+# Agrega esta línea debajo
+const HUD_SCENE = preload("res://scenes/ui/HUD.tscn")
+var _hud: CanvasLayer = null
+
+
 var chat_visible = false
 
 func _ready():
@@ -34,7 +39,9 @@ func _ready():
 	multiplayer.peer_disconnected.connect(_remove_player)
 
 func _on_server_disconnected():
-	print("Server disconnected, returning to menu...")
+	if _hud:
+		_hud.queue_free()
+		_hud = null
 	for child in players_container.get_children():
 		child.queue_free()
 	chat_visible = false
@@ -47,12 +54,21 @@ func _on_player_connected(peer_id, player_info):
 func _on_host_pressed(nickname: String, character: String):
 	main_menu.hide_menu()
 	crosshair.show()
+	_spawn_hud(nickname)
 	Network.start_host(nickname, character)
 
 func _on_join_pressed(nickname: String, character: String, address: String):
 	main_menu.hide_menu()
 	crosshair.show()
+	_spawn_hud(nickname)
 	Network.join_game(nickname, character, address)
+
+func _spawn_hud(nickname: String) -> void:
+	if _hud != null:
+		return
+	_hud = HUD_SCENE.instantiate()
+	add_child(_hud)
+	_hud.set_nickname(nickname)
 
 func _add_player(id: int, player_info: Dictionary):
 	if DisplayServer.get_name() == "headless" and id == 1:
