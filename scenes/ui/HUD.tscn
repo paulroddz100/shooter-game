@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://b713gkdolerij"]
 
 [ext_resource type="Script" uid="uid://lrks4dh6midx" path="res://scripts/hud.gd" id="1_kw0id"]
+[ext_resource type="FontFile" uid="uid://bdr5ndt22r7ko" path="res://assets/fonts/Peace Sans.otf" id="2_6ll6g"]
+[ext_resource type="FontFile" uid="uid://bn0cjpb6wmh3f" path="res://assets/fonts/Insanibu.ttf" id="2_atyv1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atyv1"]
 content_margin_left = 6.0
@@ -50,6 +52,9 @@ alignment = 1
 
 [node name="NicknameLabel" type="Label" parent="Control/PanelContainer/VBoxContainer" unique_id=1187607503]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.31833893, 0.9920319, 0.9999998, 1)
+theme_override_fonts/font = ExtResource("2_6ll6g")
+text = "Player"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer" unique_id=2011532257]
@@ -70,6 +75,7 @@ stretch_mode = 5
 [node name="LifeLabel" type="Label" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/LifeContainer" unique_id=142480752]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_atyv1")
 theme_override_font_sizes/font_size = 20
 text = "100"
 vertical_alignment = 1
@@ -88,6 +94,7 @@ stretch_mode = 5
 [node name="AmmoLabel" type="Label" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/AmmoContainer" unique_id=2054314720]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_atyv1")
 theme_override_font_sizes/font_size = 20
 text = "30/90"
 vertical_alignment = 1

@@ -27,10 +27,12 @@ var ammo_reserve : int = 50
 @onready var nickname: Label3D = $PlayerNick/Nickname
 @onready var _raycast: RayCast3D = $SpringArmOffset/SpringArm3D/Camera3D/RayCast3D
 @onready var _spring_arm_offset: Node3D = $SpringArmOffset
+@onready var _crosshair_label: Label = get_tree().get_current_scene().get_node("CanvasLayer/CenterContainer/Label")
 
 @export_category("Objects")
 @export var _body: Node3D = null
 @export var _muzzle: Node3D = null
+
 
 var current_animation: String = "IDLE_ANIM":
 	set(value):
@@ -158,6 +160,8 @@ func _physics_process(delta):
 			_shoot_timer = SHOOT_COOLDOWN
 	else:
 		_body.set_shooting(false)
+	
+	_update_crosshair()
 
 func _process(_delta):
 	if not multiplayer.has_multiplayer_peer(): return
@@ -375,3 +379,24 @@ func _play_death_local() -> void:
 	if _body:
 		_body._is_dead = true
 		_body.play_death_animation()
+
+func _update_crosshair() -> void:
+	if not is_multiplayer_authority():
+		return
+	if _crosshair_label == null:
+		return
+
+	# Gris si está recargando
+	if _is_reloading:
+		_crosshair_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7, 1.0))
+		return
+
+	# Blanco si apunta a un enemigo, gris si no
+	if _raycast.is_colliding():
+		var hit = _raycast.get_collider()
+		var target = hit if hit is Character else hit.get_parent()
+		if target is Character and not target.is_dead():
+			_crosshair_label.add_theme_color_override("font_color", Color.WHITE)
+			return
+
+	_crosshair_label.add_theme_color_override("font_color", Color(0.7, 0.7, 0.7, 1.0))

@@ -73,7 +73,7 @@ func _process(delta: float) -> void:
 		_bullet_icon.rotation_degrees = _gear_rotation
 		
 		var remaining = ceil(_character._reload_timer)
-		_ammo_label.text = "  %ds" % remaining
+		_ammo_label.text = "  %d..." % remaining
 		
 	else:
 		# Regresa al ícono de bala
