@@ -138,7 +138,7 @@ layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0.52549, 0, 1)
 theme_override_fonts/font = ExtResource("4_02l8k")
-theme_override_font_sizes/font_size = 44
+theme_override_font_sizes/font_size = 55
 text = "ANFITRIÓN"
 flat = true
 
@@ -147,7 +147,7 @@ layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0.8901961, 0.7411765, 0, 1)
 theme_override_colors/font_hover_color = Color(0.8884694, 0.74143326, 7.70092e-07, 1)
 theme_override_fonts/font = ExtResource("4_02l8k")
-theme_override_font_sizes/font_size = 44
+theme_override_font_sizes/font_size = 55
 text = "UNIRSE"
 flat = true
 
@@ -162,7 +162,7 @@ layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0.858824, 0, 0, 0.862745)
 theme_override_colors/font_hover_color = Color(0.858807, 4.71681e-06, 1.15514e-06, 0.862745)
 theme_override_fonts/font = ExtResource("4_02l8k")
-theme_override_font_sizes/font_size = 44
+theme_override_font_sizes/font_size = 55
 text = "SALIR"
 flat = true
 

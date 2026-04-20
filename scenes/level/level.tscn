@@ -18,6 +18,9 @@ size = Vector3(90, 0.05, 90)
 
 [sub_resource type="Environment" id="Environment_qb4jd"]
 fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.43672717, 0.72330487, 0.9999997, 1)
+fog_density = 0.331
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnne4"]
 
@@ -69,7 +72,7 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/CenterContainer" unique_id=1160748935]
 layout_mode = 2
-theme_override_font_sizes/font_size = 25
+theme_override_font_sizes/font_size = 35
 theme_override_styles/focus = SubResource("StyleBoxFlat_hnne4")
 text = "+"
 horizontal_alignment = 1

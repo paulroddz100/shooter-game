@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cb4r6n3tptvg2"
 path.s3tc="res://.godot/imported/BIG_VEGAS_MODEL_Elvis_FaceAnimMap.png-23c55fe06a625524282cd91ea5d19d1f.s3tc.ctex"
+path.etc2="res://.godot/imported/BIG_VEGAS_MODEL_Elvis_FaceAnimMap.png-23c55fe06a625524282cd91ea5d19d1f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/characters/team_b/Big Vegas/BIG_VEGAS_MODEL_Elvis_FaceAnimMap.png"
-dest_files=["res://.godot/imported/BIG_VEGAS_MODEL_Elvis_FaceAnimMap.png-23c55fe06a625524282cd91ea5d19d1f.s3tc.ctex"]
+dest_files=["res://.godot/imported/BIG_VEGAS_MODEL_Elvis_FaceAnimMap.png-23c55fe06a625524282cd91ea5d19d1f.s3tc.ctex", "res://.godot/imported/BIG_VEGAS_MODEL_Elvis_FaceAnimMap.png-23c55fe06a625524282cd91ea5d19d1f.etc2.ctex"]
 
 [params]
 

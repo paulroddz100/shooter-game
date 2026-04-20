@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bwk01x5cc6jnc"
 path.s3tc="res://.godot/imported/MOUSEY_MODEL_Ch14_1001_Glossiness.png-337f423cfb67c5be3ac622399525620c.s3tc.ctex"
+path.etc2="res://.godot/imported/MOUSEY_MODEL_Ch14_1001_Glossiness.png-337f423cfb67c5be3ac622399525620c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/characters/team_b/Mousey/MOUSEY_MODEL_Ch14_1001_Glossiness.png"
-dest_files=["res://.godot/imported/MOUSEY_MODEL_Ch14_1001_Glossiness.png-337f423cfb67c5be3ac622399525620c.s3tc.ctex"]
+dest_files=["res://.godot/imported/MOUSEY_MODEL_Ch14_1001_Glossiness.png-337f423cfb67c5be3ac622399525620c.s3tc.ctex", "res://.godot/imported/MOUSEY_MODEL_Ch14_1001_Glossiness.png-337f423cfb67c5be3ac622399525620c.etc2.ctex"]
 
 [params]
 

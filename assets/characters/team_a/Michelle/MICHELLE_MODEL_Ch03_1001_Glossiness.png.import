@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dsq5umgajxk85"
 path.s3tc="res://.godot/imported/MICHELLE_MODEL_Ch03_1001_Glossiness.png-95d9b5554676f220ee9bcda666ec040c.s3tc.ctex"
+path.etc2="res://.godot/imported/MICHELLE_MODEL_Ch03_1001_Glossiness.png-95d9b5554676f220ee9bcda666ec040c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/characters/team_a/Michelle/MICHELLE_MODEL_Ch03_1001_Glossiness.png"
-dest_files=["res://.godot/imported/MICHELLE_MODEL_Ch03_1001_Glossiness.png-95d9b5554676f220ee9bcda666ec040c.s3tc.ctex"]
+dest_files=["res://.godot/imported/MICHELLE_MODEL_Ch03_1001_Glossiness.png-95d9b5554676f220ee9bcda666ec040c.s3tc.ctex", "res://.godot/imported/MICHELLE_MODEL_Ch03_1001_Glossiness.png-95d9b5554676f220ee9bcda666ec040c.etc2.ctex"]
 
 [params]
 

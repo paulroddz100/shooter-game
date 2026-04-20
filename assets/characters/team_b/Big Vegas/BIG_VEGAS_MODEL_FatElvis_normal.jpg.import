@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cu6sweoso5can"
 path.s3tc="res://.godot/imported/BIG_VEGAS_MODEL_FatElvis_normal.jpg-74c7ef79b501635c4a58b9276e047a23.s3tc.ctex"
+path.etc2="res://.godot/imported/BIG_VEGAS_MODEL_FatElvis_normal.jpg-74c7ef79b501635c4a58b9276e047a23.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/characters/team_b/Big Vegas/BIG_VEGAS_MODEL_FatElvis_normal.jpg"
-dest_files=["res://.godot/imported/BIG_VEGAS_MODEL_FatElvis_normal.jpg-74c7ef79b501635c4a58b9276e047a23.s3tc.ctex"]
+dest_files=["res://.godot/imported/BIG_VEGAS_MODEL_FatElvis_normal.jpg-74c7ef79b501635c4a58b9276e047a23.s3tc.ctex", "res://.godot/imported/BIG_VEGAS_MODEL_FatElvis_normal.jpg-74c7ef79b501635c4a58b9276e047a23.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dvq3tebcsep1q"
 path.s3tc="res://.godot/imported/AMY_MODEL_Ch46_1001_Normal.png-72742c68a788dd9b4d0d7d5b2d72cd3e.s3tc.ctex"
+path.etc2="res://.godot/imported/AMY_MODEL_Ch46_1001_Normal.png-72742c68a788dd9b4d0d7d5b2d72cd3e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/characters/team_a/Amy/AMY_MODEL_Ch46_1001_Normal.png"
-dest_files=["res://.godot/imported/AMY_MODEL_Ch46_1001_Normal.png-72742c68a788dd9b4d0d7d5b2d72cd3e.s3tc.ctex"]
+dest_files=["res://.godot/imported/AMY_MODEL_Ch46_1001_Normal.png-72742c68a788dd9b4d0d7d5b2d72cd3e.s3tc.ctex", "res://.godot/imported/AMY_MODEL_Ch46_1001_Normal.png-72742c68a788dd9b4d0d7d5b2d72cd3e.etc2.ctex"]
 
 [params]
 
