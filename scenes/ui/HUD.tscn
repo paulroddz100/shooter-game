@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://lrks4dh6midx" path="res://scripts/hud.gd" id="1_kw0id"]
 [ext_resource type="FontFile" uid="uid://bdr5ndt22r7ko" path="res://assets/fonts/Peace Sans.otf" id="2_6ll6g"]
 [ext_resource type="FontFile" uid="uid://bn0cjpb6wmh3f" path="res://assets/fonts/Insanibu.ttf" id="2_atyv1"]
+[ext_resource type="PackedScene" uid="uid://bolodsplnqnqu" path="res://addons/virtual_joystick/virtual_joystick.tscn" id="4_ig75s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atyv1"]
 content_margin_left = 6.0
@@ -98,3 +99,14 @@ theme_override_fonts/font = ExtResource("2_atyv1")
 theme_override_font_sizes/font_size = 20
 text = "30/90"
 vertical_alignment = 1
+
+[node name="LeftJoystick" parent="Control" unique_id=912784726 instance=ExtResource("4_ig75s")]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 750.0
+offset_right = 230.0
+offset_bottom = 750.0
+action_left = &"move_left"
+action_up = &"move_forward"
+action_right = &"move_right"
+action_down = &"move_backward"

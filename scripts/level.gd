@@ -88,6 +88,11 @@ func _add_player(id: int, player_info: Dictionary):
 	var character_data = _load_character_data(character_id)
 	if character_data:
 		player.set_character(character_data)
+		
+	if id == multiplayer.get_unique_id() and _hud:
+		var right_js = _hud.get_node("JoystickMargin/RightVirtualJoystick")
+		if right_js:
+			right_js.direction_changed.connect(player._on_right_joystick_direction_changed)
 
 func get_spawn_point() -> Vector3:
 	var spawn_point = Vector2.from_angle(randf() * 2 * PI) * 10
@@ -103,10 +108,10 @@ func _remove_player(id):
 func _on_quit_pressed() -> void:
 	get_tree().quit()
 
-func get_local_player() -> Character:
+func get_local_player():
 	var local_player_id = multiplayer.get_unique_id()
 	if players_container.has_node(str(local_player_id)):
-		return players_container.get_node(str(local_player_id)) as Character
+		return players_container.get_node(str(local_player_id))
 	return null
 
 # ---------- CHAT ----------

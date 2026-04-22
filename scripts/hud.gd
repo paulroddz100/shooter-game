@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var _ammo_label     : Label       = $Control/PanelContainer/VBoxContainer/HBoxContainer/AmmoContainer/AmmoLabel
 @onready var _heart_icon: TextureRect = $Control/PanelContainer/VBoxContainer/HBoxContainer/LifeContainer/HeartIcon
 @onready var _bullet_icon: TextureRect = $Control/PanelContainer/VBoxContainer/HBoxContainer/AmmoContainer/BulletIcon
+@onready var _left_joystick: VirtualJoystick = $Control/LeftJoystick
 
 const BULLET_SHEET = preload("res://assets/ui/2D Pickups v6.2 spritesheet.png")  # ajusta la ruta
 const HEART_SHEET = preload("res://assets/ui/heart_animated_2.png")  # ajusta la ruta
@@ -15,12 +16,16 @@ const GEAR_TEXTURE = preload("res://assets/ui/gear.png")
 var _bullet_atlas: AtlasTexture = null
 var _gear_rotation: float = 0.0
 var _showing_gear: bool = false
+var _left_joystick_active: bool = false
+
 
 # ── Referencia al personaje local ─────────────────────────────────────────
-var _character : Character = null
+var _character = null
 
 func _ready() -> void:
 	# Corazón
+	_left_joystick.pressed.connect(_on_left_joystick_pressed)
+	_left_joystick.released.connect(_on_left_joystick_released)
 	var atlas_heart = AtlasTexture.new()
 	atlas_heart.atlas = HEART_SHEET
 	atlas_heart.region = Rect2(0, 0, 17, 17)
@@ -48,15 +53,12 @@ func _ready() -> void:
 		if _character == null:
 			await get_tree().create_timer(0.1).timeout
 	
-	print("HUD: personaje encontrado — ", _character.name)
 
 # ── Update por frame ──────────────────────────────────────────────────────
 
 func _process(delta: float) -> void:
 	if _character == null:
-		print("HUD: _character es null")
 		return
-	print("HUD: health=", _character.health, " reloading=", _character._is_reloading, " ammo=", _character.ammo_current)
 	
 	_life_label.text = str(int(_character.health))
 	_update_heart_icon()
@@ -121,3 +123,12 @@ func _update_heart_icon() -> void:
 	
 	var atlas = _heart_icon.texture as AtlasTexture
 	atlas.region = Rect2(frame * 17, 0, 17, 17)
+
+func is_left_joystick_active() -> bool:
+	return _left_joystick._touch_index != -1
+
+func _on_left_joystick_pressed() -> void:
+	_left_joystick_active = true
+
+func _on_left_joystick_released() -> void:
+	_left_joystick_active = false

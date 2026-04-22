@@ -24,11 +24,22 @@ func animate(_velocity: Vector3) -> void:
 	if _is_dead:
 		return
 	if not _character.is_on_floor():
+		_animate_jumping()  # ← nuevo
 		return
 	if _velocity.length() > 0.1:
 		_animate_moving(_velocity)
 		return
 	_animate_idle()
+
+func _animate_jumping() -> void:
+	var input = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	var parent = get_parent()
+	if parent:
+		if abs(input.x) > 0.3:
+			var lean_angle = deg_to_rad(45.0) * sign(input.x)
+			parent.rotation.z = lerp_angle(parent.rotation.z, lean_angle, 0.15)
+		else:
+			parent.rotation.z = lerp_angle(parent.rotation.z, 0.0, 0.15)
 
 func play_death_animation() -> void:
 	_is_dead = true
