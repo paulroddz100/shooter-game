@@ -132,3 +132,8 @@ func _on_left_joystick_pressed() -> void:
 
 func _on_left_joystick_released() -> void:
 	_left_joystick_active = false
+
+func is_touch_inside_joystick(touch_position: Vector2) -> bool:
+	var js_center = Vector2(230.0, 750.0)
+	var radius = 220.0
+	return touch_position.distance_to(js_center) <= radius

@@ -10,4 +10,5 @@ team = 1
 character_type = 1
 model_scene = ExtResource("1_fg8tq")
 max_health = 200.0
+preview_scale = 0.8
 metadata/_custom_type_script = "uid://bunvliqxfw8br"

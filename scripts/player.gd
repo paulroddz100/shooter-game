@@ -24,6 +24,7 @@ var ammo_current: int = 50
 var ammo_reserve: int = 50
 var _right_touch_index: int = -1
 var _right_touch_last_pos: Vector2 = Vector2.ZERO
+var _joystick_is_pressed: bool = false
  
 @onready var nickname: Label3D = $PlayerNick/Nickname
 @onready var _raycast: RayCast3D = $SpringArmOffset/SpringArm3D/Camera3D/RayCast3D
@@ -92,6 +93,11 @@ func _ready():
 	config.add_property(".:is_dead_synced")
 	if is_multiplayer_authority():
 		$SpringArmOffset/SpringArm3D.spring_length = CAMERA_DISTANCE
+		await get_tree().process_frame
+		var js = get_tree().get_current_scene()._hud._left_joystick
+		if js:
+			js.pressed.connect(func(): _joystick_is_pressed = true)
+			js.released.connect(func(): _joystick_is_pressed = false)
  
 # ── INPUT ──────────────────────────────────────────────────────────────────
  
@@ -102,9 +108,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenTouch:
 		if event.pressed:
 			if _right_touch_index == -1:
-				var js_index = get_tree().get_current_scene()._hud._left_joystick._touch_index
-				print("Touch index: ", event.index, " | JS index: ", js_index)
-				if event.index != js_index:
+				var _game_hud = get_tree().get_current_scene()._hud
+				if not _game_hud.is_touch_inside_joystick(event.position):
 					_right_touch_index = event.index
 					_right_touch_last_pos = event.position
 		elif event.index == _right_touch_index:

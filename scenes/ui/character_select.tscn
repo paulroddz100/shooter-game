@@ -1,0 +1,205 @@
+[gd_scene format=3 uid="uid://30nuknuvcix"]
+
+[ext_resource type="Script" uid="uid://4i0osmqhdcas" path="res://scripts/character_select.gd" id="1_ci853"]
+[ext_resource type="FontFile" uid="uid://bdr5ndt22r7ko" path="res://assets/fonts/Peace Sans.otf" id="2_hwgyf"]
+[ext_resource type="FontFile" uid="uid://bn0cjpb6wmh3f" path="res://assets/fonts/Insanibu.ttf" id="3_gp4m6"]
+
+[sub_resource type="Environment" id="Environment_ci853"]
+background_mode = 1
+background_color = Color(0.101960786, 0.4509804, 0.5019608, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.5370113, 0.5370113, 0.5370113, 1)
+ambient_light_energy = 1.5
+
+[node name="CharacterSelect" type="Control" unique_id=1476740545]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ci853")
+
+[node name="Background" type="ColorRect" parent="." unique_id=350849906]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.4509804, 0.5019608, 1)
+
+[node name="Title" type="Label" parent="." unique_id=224894504]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -274.0
+offset_top = 22.0
+offset_right = 266.0
+offset_bottom = 84.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 0.5137255, 1)
+theme_override_fonts/font = ExtResource("2_hwgyf")
+theme_override_font_sizes/font_size = 44
+text = "Selecciona tu personaje"
+
+[node name="FactionTabBar" type="HBoxContainer" parent="." unique_id=1904829840]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -851.0
+offset_top = 99.0
+offset_right = 860.0
+offset_bottom = 188.0
+grow_horizontal = 2
+
+[node name="BandoBtn1" type="Button" parent="FactionTabBar" unique_id=667083051]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_gp4m6")
+theme_override_font_sizes/font_size = 40
+text = "BANDO 1"
+
+[node name="BandoBtn2" type="Button" parent="FactionTabBar" unique_id=549334499]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("3_gp4m6")
+theme_override_font_sizes/font_size = 40
+text = "BANDO 2"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1978047967]
+layout_mode = 1
+offset_left = 90.0
+offset_top = 391.0
+offset_right = 601.0
+offset_bottom = 853.0
+theme_override_constants/separation = 10
+
+[node name="CharBtn1" type="Button" parent="VBoxContainer" unique_id=1775876803]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_gp4m6")
+theme_override_font_sizes/font_size = 31
+text = "PERSONAJE 1"
+
+[node name="CharBtn2" type="Button" parent="VBoxContainer" unique_id=421024129]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_gp4m6")
+theme_override_font_sizes/font_size = 31
+text = "PERSONAJE 1"
+
+[node name="CharBtn3" type="Button" parent="VBoxContainer" unique_id=447164348]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_gp4m6")
+theme_override_font_sizes/font_size = 31
+text = "PERSONAJE 1"
+
+[node name="CharBtn4" type="Button" parent="VBoxContainer" unique_id=30177988]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("3_gp4m6")
+theme_override_font_sizes/font_size = 31
+text = "PERSONAJE 1"
+
+[node name="ViewportContainer" type="SubViewportContainer" parent="." unique_id=1006045402]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -324.0
+offset_top = -334.0
+offset_right = 291.0
+offset_bottom = 531.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="ViewportContainer" unique_id=1901734319]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(615, 865)
+render_target_update_mode = 4
+
+[node name="CharacterScene" type="Node3D" parent="ViewportContainer/SubViewport" unique_id=1500375295]
+
+[node name="Camera3D" type="Camera3D" parent="ViewportContainer/SubViewport/CharacterScene" unique_id=2142854711]
+transform = Transform3D(1, 0, 0, 0, 0.9961947, 0.08715574, 0, -0.08715574, 0.9961947, 0, 0.9, 1.5)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="ViewportContainer/SubViewport/CharacterScene" unique_id=498782542]
+transform = Transform3D(0.70710677, -0.49999997, 0.49999997, 0, 0.70710677, 0.70710677, -0.70710677, -0.49999997, 0.49999997, 0, 0, 0)
+light_energy = 0.6
+
+[node name="CharacterModel" type="Node3D" parent="ViewportContainer/SubViewport/CharacterScene" unique_id=1903433040]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="ViewportContainer/SubViewport/CharacterScene" unique_id=759643780]
+environment = SubResource("Environment_ci853")
+
+[node name="InfoPanel" type="VBoxContainer" parent="." unique_id=596283659]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -528.0
+offset_top = 374.0
+offset_right = -368.0
+offset_bottom = 567.0
+grow_horizontal = 0
+theme_override_constants/separation = 12
+
+[node name="CharName" type="Label" parent="InfoPanel" unique_id=278745502]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_hwgyf")
+theme_override_font_sizes/font_size = 66
+text = "Amy"
+
+[node name="StatRole" type="Label" parent="InfoPanel" unique_id=1160951869]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_gp4m6")
+theme_override_font_sizes/font_size = 38
+text = "Rol: Todoterreno"
+
+[node name="StatHealth" type="Label" parent="InfoPanel" unique_id=1120104222]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_gp4m6")
+theme_override_font_sizes/font_size = 38
+text = "Vida: 100"
+
+[node name="StatDamage" type="Label" parent="InfoPanel" unique_id=437662074]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_gp4m6")
+theme_override_font_sizes/font_size = 38
+text = "Daño: 15"
+
+[node name="BackButton" type="Button" parent="." unique_id=2064304394]
+layout_mode = 1
+offset_left = 18.0
+offset_top = 12.0
+offset_right = 203.0
+offset_bottom = 81.0
+theme_override_font_sizes/font_size = 56
+text = "◀"
+
+[node name="StartButton" type="Button" parent="." unique_id=877778841]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9250001
+anchor_top = 0.92800003
+anchor_right = 0.9250001
+anchor_bottom = 0.92800003
+offset_left = -165.50024
+offset_top = -53.24005
+offset_right = 70.999756
+offset_bottom = 24.840027
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("3_gp4m6")
+theme_override_font_sizes/font_size = 36
+text = "¡VAMOS!"

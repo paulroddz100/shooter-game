@@ -1,9 +1,8 @@
 extends Control
 class_name MainMenuUI
 
-signal host_pressed(nickname: String, character: String)
-signal join_pressed(nickname: String, character: String, address: String)
 signal quit_pressed
+signal open_character_select(nickname: String, address: String, is_host: bool)
 
 @onready var skin_input: LineEdit = $MainContainer/MainMenu/Option2/SkinInput
 @onready var nick_input: LineEdit = $MainContainer/MainMenu/Option1/NickInput
@@ -14,12 +13,12 @@ func _ready():
 
 func _on_host_pressed():
 	var nickname = nick_input.text.strip_edges()
-	host_pressed.emit(nickname, "amy")
+	open_character_select.emit(nickname, "", true)
 
 func _on_join_pressed():
 	var nickname = nick_input.text.strip_edges()
 	var address = address_input.text.strip_edges()
-	join_pressed.emit(nickname, "amy", address)
+	open_character_select.emit(nickname, address, false)
 
 func _on_quit_pressed():
 	quit_pressed.emit()

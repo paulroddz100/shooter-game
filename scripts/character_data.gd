@@ -9,3 +9,4 @@ class_name CharacterData
 @export var move_speed: float = 6.0
 @export var sprint_speed: float = 10.0
 @export var damage: float = 25.0
+@export var preview_scale : float = 1.0

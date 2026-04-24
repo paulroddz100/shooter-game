@@ -8,4 +8,5 @@ script = ExtResource("1_6goi5")
 character_name = "Mousey"
 team = 1
 model_scene = ExtResource("1_5o7py")
+preview_scale = 0.8
 metadata/_custom_type_script = "uid://bunvliqxfw8br"

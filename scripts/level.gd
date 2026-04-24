@@ -9,12 +9,15 @@ extends Node3D
 
 # Agrega esta línea debajo
 const HUD_SCENE = preload("res://scenes/ui/HUD.tscn")
+const CHARACTER_SELECT_SCENE = preload("res://scenes/ui/character_select.tscn")
+var _char_select: CharacterSelectUI = null
 var _hud: CanvasLayer = null
 
 
 var chat_visible = false
 
 func _ready():
+	main_menu.open_character_select.connect(_on_open_character_select)
 	if DisplayServer.get_name() == "headless":
 		print("Dedicated server starting...")
 		Network.start_host("", "")
@@ -23,8 +26,7 @@ func _ready():
 	main_menu.show_menu()
 	multiplayer_chat.set_process_input(true)
 
-	main_menu.host_pressed.connect(_on_host_pressed)
-	main_menu.join_pressed.connect(_on_join_pressed)
+	main_menu.open_character_select.connect(_on_open_character_select)
 	main_menu.quit_pressed.connect(_on_quit_pressed)
 
 	if multiplayer_chat:
@@ -51,14 +53,16 @@ func _on_server_disconnected():
 func _on_player_connected(peer_id, player_info):
 	_add_player(peer_id, player_info)
 
-func _on_host_pressed(nickname: String, character: String):
-	main_menu.hide_menu()
+func _on_host_confirmed(nickname: String, character: String) -> void:
+	if _char_select:
+		_char_select.hide()
 	crosshair.show()
 	_spawn_hud(nickname)
 	Network.start_host(nickname, character)
 
-func _on_join_pressed(nickname: String, character: String, address: String):
-	main_menu.hide_menu()
+func _on_join_confirmed(nickname: String, character: String, address: String) -> void:
+	if _char_select:
+		_char_select.hide()
 	crosshair.show()
 	_spawn_hud(nickname)
 	Network.join_game(nickname, character, address)
@@ -166,3 +170,19 @@ func broadcast_respawn(player_name: String) -> void:
 	var player = players_container.get_node_or_null(player_name)
 	if player:
 		player.do_respawn()
+
+func _on_open_character_select(nickname: String, address: String, is_host: bool) -> void:
+	main_menu.hide_menu()
+	
+	if _char_select == null:
+		_char_select = CHARACTER_SELECT_SCENE.instantiate()
+		add_child(_char_select)
+		_char_select.host_confirmed.connect(_on_host_confirmed)
+		_char_select.join_confirmed.connect(_on_join_confirmed)
+	_char_select.setup(nickname, address, is_host)
+	_char_select.show()
+
+func show_main_menu_from_character_select() -> void:
+	if _char_select:
+		_char_select.hide()
+	main_menu.show_menu()

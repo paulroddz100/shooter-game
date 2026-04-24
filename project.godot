@@ -27,8 +27,8 @@ Network="*res://scripts/network.gd"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=2340
+window/size/viewport_height=1080
 
 [input]
 
