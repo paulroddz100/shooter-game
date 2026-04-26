@@ -21,8 +21,8 @@ signal join_confirmed(nickname: String, character: String, address: String)
 @onready var viewport_container : SubViewportContainer = $ViewportContainer
 @onready var char_model_root  : Node3D              = $ViewportContainer/SubViewport/CharacterScene/CharacterModel
 
-const COLOR_BANDO1 := Color(0.1, 0.45, 0.5)
-const COLOR_BANDO2 := Color(0.55, 0.15, 0.05)
+const COLOR_BANDO1 := Color(0.102, 0.184, 0.502, 1.0)
+const COLOR_BANDO2 := Color(0.507, 0.057, 0.012, 1.0)
 
 const CHARACTERS := {
 	"bando1": [

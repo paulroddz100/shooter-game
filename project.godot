@@ -29,6 +29,8 @@ Network="*res://scripts/network.gd"
 
 window/size/viewport_width=2340
 window/size/viewport_height=1080
+window/size/mode=1
+window/size/initial_position_type=0
 
 [input]
 

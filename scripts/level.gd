@@ -92,12 +92,12 @@ func _add_player(id: int, player_info: Dictionary):
 	var character_data = _load_character_data(character_id)
 	if character_data:
 		player.set_character(character_data)
-		
-	if id == multiplayer.get_unique_id() and _hud:
-		var right_js = _hud.get_node("JoystickMargin/RightVirtualJoystick")
-		if right_js:
-			right_js.direction_changed.connect(player._on_right_joystick_direction_changed)
 
+	if id == multiplayer.get_unique_id() and _hud:
+		var ab = _hud.get_action_buttons()
+		if ab:
+			ab.set_player(player)
+		
 func get_spawn_point() -> Vector3:
 	var spawn_point = Vector2.from_angle(randf() * 2 * PI) * 10
 	return Vector3(spawn_point.x, 0, spawn_point.y)

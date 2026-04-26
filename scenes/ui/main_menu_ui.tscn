@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bx7mq8t8hjn7q"]
 
-[ext_resource type="FontFile" uid="uid://bv55jividpx4f" path="res://assets/fonts/EMPIREST.TTF" id="2_b8bkt"]
+[ext_resource type="FontFile" uid="uid://b0o8cc8bstntp" path="res://assets/fonts/Toony.ttf" id="2_qegi1"]
 [ext_resource type="Script" uid="uid://wfj6b11wkwx2" path="res://scripts/main_menu_ui.gd" id="2_script"]
 [ext_resource type="FontFile" uid="uid://bdr5ndt22r7ko" path="res://assets/fonts/Peace Sans.otf" id="3_qegi1"]
 [ext_resource type="FontFile" uid="uid://bn0cjpb6wmh3f" path="res://assets/fonts/Insanibu.ttf" id="4_02l8k"]
@@ -28,12 +28,9 @@ color = Color(0.0901961, 0.0901961, 0.0901961, 1)
 
 [node name="MainContainer" type="VBoxContainer" parent="." unique_id=1905488538]
 layout_mode = 1
-anchors_preset = 14
-anchor_top = 0.5
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -257.0
-offset_bottom = 257.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 50
@@ -43,9 +40,10 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("2_b8bkt")
-theme_override_font_sizes/font_size = 93
-text = "MINI SHOOTER GAME"
+theme_override_colors/font_color = Color(0.7058824, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_qegi1")
+theme_override_font_sizes/font_size = 180
+text = "Funky Toons"
 
 [node name="MainMenu" type="VBoxContainer" parent="MainContainer" unique_id=54256138]
 layout_direction = 1
@@ -70,36 +68,15 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_qegi1")
-theme_override_font_sizes/font_size = 35
-text = "Nombre :"
+theme_override_font_sizes/font_size = 65
+text = "Nombre : "
 
 [node name="NickInput" type="LineEdit" parent="MainContainer/MainMenu/Option1" unique_id=991600524]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_02l8k")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 65
 placeholder_text = "Tu Nickname"
 max_length = 20
-expand_to_text_length = true
-
-[node name="Option2" type="HBoxContainer" parent="MainContainer/MainMenu" unique_id=154844303]
-layout_mode = 2
-size_flags_vertical = 4
-alignment = 1
-
-[node name="Label" type="Label" parent="MainContainer/MainMenu/Option2" unique_id=308107296]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("3_qegi1")
-theme_override_font_sizes/font_size = 35
-text = "Equipo : "
-
-[node name="SkinInput" type="LineEdit" parent="MainContainer/MainMenu/Option2" unique_id=1096721862]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("4_02l8k")
-theme_override_font_sizes/font_size = 35
-placeholder_text = "aleatorio"
-alignment = 1
 expand_to_text_length = true
 
 [node name="Option3" type="HBoxContainer" parent="MainContainer/MainMenu" unique_id=940084546]
@@ -112,13 +89,13 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("3_qegi1")
-theme_override_font_sizes/font_size = 35
-text = "Dirección IP : "
+theme_override_font_sizes/font_size = 65
+text = "Dirección IP :  "
 
 [node name="AddressInput" type="LineEdit" parent="MainContainer/MainMenu/Option3" unique_id=2000808160]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("4_02l8k")
-theme_override_font_sizes/font_size = 35
+theme_override_font_sizes/font_size = 65
 placeholder_text = "127.0.0.1"
 alignment = 1
 expand_to_text_length = true
@@ -130,7 +107,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_npnbc")
 
 [node name="Buttons" type="HBoxContainer" parent="MainContainer/MainMenu" unique_id=363284365]
 layout_mode = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 230
 alignment = 1
 
 [node name="Host" type="Button" parent="MainContainer/MainMenu/Buttons" unique_id=1961644697]
@@ -138,7 +115,7 @@ layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0, 0.52549, 0, 1)
 theme_override_colors/font_hover_color = Color(0, 0.52549, 0, 1)
 theme_override_fonts/font = ExtResource("4_02l8k")
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 75
 text = "ANFITRIÓN"
 flat = true
 
@@ -147,7 +124,7 @@ layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0.8901961, 0.7411765, 0, 1)
 theme_override_colors/font_hover_color = Color(0.8884694, 0.74143326, 7.70092e-07, 1)
 theme_override_fonts/font = ExtResource("4_02l8k")
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 75
 text = "UNIRSE"
 flat = true
 
@@ -155,14 +132,16 @@ flat = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 25
 alignment = 1
 
 [node name="Quit" type="Button" parent="MainContainer/MainMenu/Option4" unique_id=1052217940]
 layout_mode = 2
 theme_override_colors/font_pressed_color = Color(0.858824, 0, 0, 0.862745)
 theme_override_colors/font_hover_color = Color(0.858807, 4.71681e-06, 1.15514e-06, 0.862745)
+theme_override_constants/h_separation = 8
 theme_override_fonts/font = ExtResource("4_02l8k")
-theme_override_font_sizes/font_size = 55
+theme_override_font_sizes/font_size = 75
 text = "SALIR"
 flat = true
 

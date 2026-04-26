@@ -7,7 +7,6 @@ extends CanvasLayer
 @onready var _ammo_label     : Label       = $Control/PanelContainer/VBoxContainer/HBoxContainer/AmmoContainer/AmmoLabel
 @onready var _heart_icon: TextureRect = $Control/PanelContainer/VBoxContainer/HBoxContainer/LifeContainer/HeartIcon
 @onready var _bullet_icon: TextureRect = $Control/PanelContainer/VBoxContainer/HBoxContainer/AmmoContainer/BulletIcon
-@onready var _left_joystick: VirtualJoystick = $Control/LeftJoystick
 
 const BULLET_SHEET = preload("res://assets/ui/2D Pickups v6.2 spritesheet.png")  # ajusta la ruta
 const HEART_SHEET = preload("res://assets/ui/heart_animated_2.png")  # ajusta la ruta
@@ -18,41 +17,47 @@ var _gear_rotation: float = 0.0
 var _showing_gear: bool = false
 var _left_joystick_active: bool = false
 
+@onready var _dpad: DPad = $MarginContainer/DPad
+@onready var _action_buttons: ActionButtons = $ActionButtons
+
+func get_action_buttons() -> ActionButtons:
+	return _action_buttons
+
+func get_dpad() -> DPad:
+	return _dpad
 
 # ── Referencia al personaje local ─────────────────────────────────────────
 var _character = null
 
 func _ready() -> void:
-	# Corazón
-	_left_joystick.pressed.connect(_on_left_joystick_pressed)
-	_left_joystick.released.connect(_on_left_joystick_released)
 	var atlas_heart = AtlasTexture.new()
 	atlas_heart.atlas = HEART_SHEET
 	atlas_heart.region = Rect2(0, 0, 17, 17)
 	_heart_icon.texture = atlas_heart
 	_heart_icon.custom_minimum_size = Vector2(17, 17)
 
-	# Bala — solo _bullet_atlas, sin duplicado
 	_bullet_atlas = AtlasTexture.new()
 	_bullet_atlas.atlas = BULLET_SHEET
 	_bullet_atlas.region = Rect2(0, 32, 32, 32)
 	_bullet_icon.texture = _bullet_atlas
 	_bullet_icon.custom_minimum_size = Vector2(32, 32)
 
-	# Posición del panel
 	var panel = $Control/PanelContainer
 	panel.custom_minimum_size = Vector2(180, 68)
-	await get_tree().process_frame
-	var viewport_width = get_viewport().get_visible_rect().size.x
-	panel.position = Vector2(viewport_width - 196, 12)
 
-	# Busca personaje con reintento cada 0.1s hasta encontrarlo
+	await get_tree().process_frame
+	await get_tree().process_frame
+	_reposition_panel()
+
+
+	print("Viewport size: ", get_viewport().get_visible_rect().size)
+
+
 	while _character == null:
 		var level = get_tree().get_current_scene()
 		_character = level.get_local_player()
 		if _character == null:
 			await get_tree().create_timer(0.1).timeout
-	
 
 # ── Update por frame ──────────────────────────────────────────────────────
 
@@ -100,10 +105,17 @@ func refresh_health(new_health: float) -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_SIZE_CHANGED:
-		var panel = $Control/PanelContainer
-		var viewport_width = get_viewport().get_visible_rect().size.x
-		panel.position = Vector2(viewport_width - 196, 12)
+		_reposition_panel()
 
+func _reposition_panel() -> void:
+	var panel = $Control/PanelContainer
+	var viewport_size: Vector2 = get_viewport().get_visible_rect().size
+	var panel_width: float = panel.size.x if panel.size.x > 0 else 180.0
+	panel.position = Vector2(
+		viewport_size.x - panel_width - 26,
+		22
+	)
+	
 func _update_heart_icon() -> void:
 	if _character == null:
 		return
@@ -123,17 +135,3 @@ func _update_heart_icon() -> void:
 	
 	var atlas = _heart_icon.texture as AtlasTexture
 	atlas.region = Rect2(frame * 17, 0, 17, 17)
-
-func is_left_joystick_active() -> bool:
-	return _left_joystick._touch_index != -1
-
-func _on_left_joystick_pressed() -> void:
-	_left_joystick_active = true
-
-func _on_left_joystick_released() -> void:
-	_left_joystick_active = false
-
-func is_touch_inside_joystick(touch_position: Vector2) -> bool:
-	var js_center = Vector2(230.0, 750.0)
-	var radius = 220.0
-	return touch_position.distance_to(js_center) <= radius

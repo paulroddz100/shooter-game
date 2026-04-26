@@ -11,6 +11,26 @@ ambient_light_source = 2
 ambient_light_color = Color(0.5370113, 0.5370113, 0.5370113, 1)
 ambient_light_energy = 1.5
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gp4m6"]
+bg_color = Color(0, 0, 0, 0.4627451)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjx3p"]
+bg_color = Color(2.2621452e-06, 0.50383776, 3.85046e-07, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+
 [node name="CharacterSelect" type="Control" unique_id=1476740545]
 layout_mode = 3
 anchors_preset = 15
@@ -27,7 +47,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.101960786, 0.4509804, 0.5019608, 1)
+color = Color(0.101960786, 0.22352941, 0.5019608, 1)
 
 [node name="Title" type="Label" parent="." unique_id=224894504]
 layout_mode = 1
@@ -50,9 +70,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -851.0
-offset_top = 99.0
+offset_top = 105.0
 offset_right = 860.0
-offset_bottom = 188.0
+offset_bottom = 194.0
 grow_horizontal = 2
 
 [node name="BandoBtn1" type="Button" parent="FactionTabBar" unique_id=667083051]
@@ -81,28 +101,28 @@ theme_override_constants/separation = 10
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("3_gp4m6")
-theme_override_font_sizes/font_size = 31
+theme_override_font_sizes/font_size = 47
 text = "PERSONAJE 1"
 
 [node name="CharBtn2" type="Button" parent="VBoxContainer" unique_id=421024129]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("3_gp4m6")
-theme_override_font_sizes/font_size = 31
+theme_override_font_sizes/font_size = 47
 text = "PERSONAJE 1"
 
 [node name="CharBtn3" type="Button" parent="VBoxContainer" unique_id=447164348]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("3_gp4m6")
-theme_override_font_sizes/font_size = 31
+theme_override_font_sizes/font_size = 47
 text = "PERSONAJE 1"
 
 [node name="CharBtn4" type="Button" parent="VBoxContainer" unique_id=30177988]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("3_gp4m6")
-theme_override_font_sizes/font_size = 31
+theme_override_font_sizes/font_size = 47
 text = "PERSONAJE 1"
 
 [node name="ViewportContainer" type="SubViewportContainer" parent="." unique_id=1006045402]
@@ -112,10 +132,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -324.0
-offset_top = -334.0
-offset_right = 291.0
-offset_bottom = 531.0
+offset_left = -303.0
+offset_top = -350.0
+offset_right = 241.0
+offset_bottom = 619.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 0
@@ -125,7 +145,7 @@ stretch = true
 own_world_3d = true
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(615, 865)
+size = Vector2i(544, 969)
 render_target_update_mode = 4
 
 [node name="CharacterScene" type="Node3D" parent="ViewportContainer/SubViewport" unique_id=1500375295]
@@ -157,25 +177,25 @@ theme_override_constants/separation = 12
 [node name="CharName" type="Label" parent="InfoPanel" unique_id=278745502]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_hwgyf")
-theme_override_font_sizes/font_size = 66
+theme_override_font_sizes/font_size = 95
 text = "Amy"
 
 [node name="StatRole" type="Label" parent="InfoPanel" unique_id=1160951869]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_gp4m6")
-theme_override_font_sizes/font_size = 38
+theme_override_font_sizes/font_size = 45
 text = "Rol: Todoterreno"
 
 [node name="StatHealth" type="Label" parent="InfoPanel" unique_id=1120104222]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_gp4m6")
-theme_override_font_sizes/font_size = 38
+theme_override_font_sizes/font_size = 45
 text = "Vida: 100"
 
 [node name="StatDamage" type="Label" parent="InfoPanel" unique_id=437662074]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("3_gp4m6")
-theme_override_font_sizes/font_size = 38
+theme_override_font_sizes/font_size = 45
 text = "Daño: 15"
 
 [node name="BackButton" type="Button" parent="." unique_id=2064304394]
@@ -194,12 +214,15 @@ anchor_left = 0.9250001
 anchor_top = 0.92800003
 anchor_right = 0.9250001
 anchor_bottom = 0.92800003
-offset_left = -165.50024
-offset_top = -53.24005
+offset_left = -249.50024
+offset_top = -74.24005
 offset_right = 70.999756
 offset_bottom = 24.840027
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_constants/outline_size = 0
 theme_override_fonts/font = ExtResource("3_gp4m6")
-theme_override_font_sizes/font_size = 36
+theme_override_font_sizes/font_size = 47
+theme_override_styles/normal = SubResource("StyleBoxFlat_gp4m6")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fjx3p")
 text = "¡VAMOS!"

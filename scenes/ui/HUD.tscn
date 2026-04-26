@@ -3,7 +3,8 @@
 [ext_resource type="Script" uid="uid://lrks4dh6midx" path="res://scripts/hud.gd" id="1_kw0id"]
 [ext_resource type="FontFile" uid="uid://bdr5ndt22r7ko" path="res://assets/fonts/Peace Sans.otf" id="2_6ll6g"]
 [ext_resource type="FontFile" uid="uid://bn0cjpb6wmh3f" path="res://assets/fonts/Insanibu.ttf" id="2_atyv1"]
-[ext_resource type="PackedScene" uid="uid://bolodsplnqnqu" path="res://addons/virtual_joystick/virtual_joystick.tscn" id="4_ig75s"]
+[ext_resource type="Script" uid="uid://bosjyvlk5iwj7" path="res://scripts/dpad.gd" id="4_ig75s"]
+[ext_resource type="Script" uid="uid://br4q85pehos12" path="res://scenes/ui/action_buttons.gd" id="5_4ed8p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atyv1"]
 content_margin_left = 6.0
@@ -11,15 +12,44 @@ content_margin_top = 6.0
 content_margin_right = 6.0
 content_margin_bottom = 6.0
 bg_color = Color(0, 0, 0, 0.53333336)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(1, 1, 1, 0.13333334)
-corner_radius_top_left = 6
-corner_radius_top_right = 6
-corner_radius_bottom_right = 6
-corner_radius_bottom_left = 6
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 12
+corner_radius_top_right = 12
+corner_radius_bottom_right = 12
+corner_radius_bottom_left = 12
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ig75s"]
+bg_color = Color(0.07058824, 0.07058824, 0.07058824, 0.70980394)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ed8p"]
+bg_color = Color(0.2159017, 0.21590173, 0.21590161, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 999
+corner_radius_top_right = 999
+corner_radius_bottom_right = 999
+corner_radius_bottom_left = 999
+corner_detail = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rnyu1"]
+bg_color = Color(0.39688924, 0.39688927, 0.3968891, 1)
+border_color = Color(0, 0.25490198, 0.85882354, 1)
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=688099910]
 script = ExtResource("1_kw0id")
@@ -34,15 +64,13 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=819622788]
-layout_direction = 3
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -1255.0
-offset_top = 12.0
-offset_right = -1075.0
-offset_bottom = 68.0
+anchors_preset = -1
+anchor_left = 0.85
+anchor_right = 0.85
+offset_left = 1.0
+offset_right = 351.0
+offset_bottom = 136.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_atyv1")
 
@@ -55,6 +83,7 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.31833893, 0.9920319, 0.9999998, 1)
 theme_override_fonts/font = ExtResource("2_6ll6g")
+theme_override_font_sizes/font_size = 43
 text = "Player"
 horizontal_alignment = 1
 
@@ -68,6 +97,7 @@ theme_override_constants/separation = 4
 alignment = 1
 
 [node name="HeartIcon" type="TextureRect" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/LifeContainer" unique_id=603340332]
+texture_filter = 3
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 expand_mode = 2
@@ -77,8 +107,8 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_atyv1")
-theme_override_font_sizes/font_size = 20
-text = "100"
+theme_override_font_sizes/font_size = 55
+text = "     100"
 vertical_alignment = 1
 
 [node name="AmmoContainer" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer/HBoxContainer" unique_id=601675829]
@@ -87,6 +117,7 @@ theme_override_constants/separation = 4
 alignment = 1
 
 [node name="BulletIcon" type="TextureRect" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/AmmoContainer" unique_id=45886608]
+texture_filter = 3
 custom_minimum_size = Vector2(16, 16)
 layout_mode = 2
 expand_mode = 2
@@ -96,17 +127,165 @@ stretch_mode = 5
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_atyv1")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 55
 text = "30/90"
 vertical_alignment = 1
 
-[node name="LeftJoystick" parent="Control" unique_id=912784726 instance=ExtResource("4_ig75s")]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1726509710]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -500.0
+offset_right = 500.0
+grow_vertical = 0
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 70
+theme_override_constants/margin_bottom = 60
+
+[node name="DPad" type="Control" parent="MarginContainer" unique_id=880120713]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+script = ExtResource("4_ig75s")
+
+[node name="Down" type="Button" parent="MarginContainer/DPad" unique_id=1918826664]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -8.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/icon_max_width = 40
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_ig75s")
+text = "▼"
+
+[node name="Up" type="Button" parent="MarginContainer/DPad" unique_id=1814469628]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_right = 75.0
+offset_bottom = 140.0
+grow_horizontal = 2
+theme_override_constants/icon_max_width = 40
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxFlat_ig75s")
+text = "▲"
+
+[node name="Left" type="Button" parent="MarginContainer/DPad" unique_id=1380257065]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -4.0
+offset_right = 8.0
+offset_bottom = 4.0
+grow_vertical = 2
+theme_override_constants/icon_max_width = 40
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_ig75s")
+text = "◀"
+
+[node name="Right" type="Button" parent="MarginContainer/DPad" unique_id=652029738]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -4.0
+offset_bottom = 4.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/icon_max_width = 40
+theme_override_font_sizes/font_size = 55
+theme_override_styles/normal = SubResource("StyleBoxFlat_ig75s")
+text = "▶"
+
+[node name="DiagLeft" type="Button" parent="MarginContainer/DPad" unique_id=1427212712]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_constants/icon_max_width = 40
+theme_override_font_sizes/font_size = 63
+theme_override_styles/normal = SubResource("StyleBoxFlat_ig75s")
+text = "↖"
+
+[node name="DiagRight" type="Button" parent="MarginContainer/DPad" unique_id=794620281]
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+theme_override_constants/icon_max_width = 40
+theme_override_font_sizes/font_size = 63
+theme_override_styles/normal = SubResource("StyleBoxFlat_ig75s")
+text = "↗"
+
+[node name="MarginContainer2" type="MarginContainer" parent="." unique_id=913430823]
+custom_minimum_size = Vector2(500, 500)
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -595.0
+offset_top = -500.0
+offset_right = -41.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 130
+theme_override_constants/margin_bottom = 60
+
+[node name="ActionButtons" type="Control" parent="MarginContainer2" unique_id=2055263730]
+layout_mode = 2
+script = ExtResource("5_4ed8p")
+
+[node name="BtnA" type="Button" parent="MarginContainer2/ActionButtons" unique_id=546007355]
+custom_minimum_size = Vector2(170, 170)
 layout_mode = 0
-offset_left = 230.0
-offset_top = 750.0
-offset_right = 230.0
-offset_bottom = 750.0
-action_left = &"move_left"
-action_up = &"move_forward"
-action_right = &"move_right"
-action_down = &"move_backward"
+offset_right = 8.0
+offset_bottom = 8.0
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("2_atyv1")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_4ed8p")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rnyu1")
+text = "A"
+
+[node name="BtnB" type="Button" parent="MarginContainer2/ActionButtons" unique_id=36506849]
+custom_minimum_size = Vector2(170, 170)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -150.0
+offset_top = -150.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("2_atyv1")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_4ed8p")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_rnyu1")
+text = "B"

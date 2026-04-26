@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pat8fw4cyb4v"
-path="res://.godot/imported/tileset.png-7b6d97b69c5040eb7bbde592b4edd568.ctex"
+uid="uid://c70g2vcwmnksm"
+path="res://.godot/imported/triangle_button.png-a342fd889059e272858acdf218e38572.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/virtual_joystick/example/main_game/tileset.png"
-dest_files=["res://.godot/imported/tileset.png-7b6d97b69c5040eb7bbde592b4edd568.ctex"]
+source_file="res://assets/ui/triangle_button.png"
+dest_files=["res://.godot/imported/triangle_button.png-a342fd889059e272858acdf218e38572.ctex"]
 
 [params]
 

@@ -4,7 +4,6 @@ class_name MainMenuUI
 signal quit_pressed
 signal open_character_select(nickname: String, address: String, is_host: bool)
 
-@onready var skin_input: LineEdit = $MainContainer/MainMenu/Option2/SkinInput
 @onready var nick_input: LineEdit = $MainContainer/MainMenu/Option1/NickInput
 @onready var address_input: LineEdit = $MainContainer/MainMenu/Option3/AddressInput
 
@@ -34,9 +33,6 @@ func is_menu_visible() -> bool:
 
 func get_nickname() -> String:
 	return nick_input.text.strip_edges()
-
-func get_skin() -> String:
-	return skin_input.text.strip_edges().to_lower()
 
 func get_address() -> String:
 	return address_input.text.strip_edges()
