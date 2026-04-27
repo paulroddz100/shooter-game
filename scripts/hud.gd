@@ -34,13 +34,20 @@ func _ready() -> void:
 	atlas_heart.atlas = HEART_SHEET
 	atlas_heart.region = Rect2(0, 0, 17, 17)
 	_heart_icon.texture = atlas_heart
-	_heart_icon.custom_minimum_size = Vector2(17, 17)
+	_heart_icon.custom_minimum_size = Vector2(42, 42)
 
 	_bullet_atlas = AtlasTexture.new()
 	_bullet_atlas.atlas = BULLET_SHEET
 	_bullet_atlas.region = Rect2(0, 32, 32, 32)
 	_bullet_icon.texture = _bullet_atlas
-	_bullet_icon.custom_minimum_size = Vector2(32, 32)
+	_bullet_icon.custom_minimum_size = Vector2(17, 17)
+	
+	_heart_icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+	_heart_icon.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	
+	
+	var life_container = $Control/PanelContainer/VBoxContainer/HBoxContainer/LifeContainer
+	life_container.size_flags_horizontal = Control.SIZE_FILL
 
 	var panel = $Control/PanelContainer
 	panel.custom_minimum_size = Vector2(180, 68)
@@ -69,27 +76,30 @@ func _process(delta: float) -> void:
 	_update_heart_icon()
 	
 	if _character._is_reloading:
-		# Cambia al engranaje si aún no lo hizo
 		if not _showing_gear:
 			_showing_gear = true
 			_bullet_icon.texture = GEAR_TEXTURE
-			_bullet_icon.pivot_offset = Vector2(16, 16)  # centro del ícono
-			
-		# Gira el engranaje
-		_gear_rotation += delta * 180.0  # 180 grados por segundo
+			_bullet_icon.expand_mode = TextureRect.EXPAND_FIT_WIDTH
+			_bullet_icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			_bullet_icon.custom_minimum_size = Vector2(32, 32)
+			# Espera un frame para que el layout calcule el tamaño real
+			await get_tree().process_frame
+			_bullet_icon.pivot_offset = _bullet_icon.size / 2.0
+
+		_gear_rotation += delta * 180.0
 		_bullet_icon.rotation_degrees = _gear_rotation
-		
+
 		var remaining = ceil(_character._reload_timer)
 		_ammo_label.text = "  %d..." % remaining
-		
+
 	else:
-		# Regresa al ícono de bala
 		if _showing_gear:
 			_showing_gear = false
 			_bullet_icon.texture = _bullet_atlas
 			_bullet_icon.rotation_degrees = 0.0
 			_gear_rotation = 0.0
-		
+			_bullet_icon.pivot_offset = Vector2.ZERO
+
 		_ammo_label.text = "%d/%d" % [_character.ammo_current, _character.ammo_reserve]
 
 # ── API pública ────────────────────────────────────────────────────────────

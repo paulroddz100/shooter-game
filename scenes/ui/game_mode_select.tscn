@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://dj2fl8of8nbdj"]
+
+[ext_resource type="Script" uid="uid://c50t1ibtu4ac1" path="res://game_mode_select.gd" id="1_a2kli"]
+[ext_resource type="FontFile" uid="uid://bdr5ndt22r7ko" path="res://assets/fonts/Peace Sans.otf" id="2_6yqcd"]
+[ext_resource type="FontFile" uid="uid://b0o8cc8bstntp" path="res://assets/fonts/Toony.ttf" id="3_8s4q0"]
+[ext_resource type="FontFile" uid="uid://bn0cjpb6wmh3f" path="res://assets/fonts/Insanibu.ttf" id="3_jxh5l"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8s4q0"]
+bg_color = Color(0, 0, 0, 0.4627451)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kocqj"]
+bg_color = Color(2.2621452e-06, 0.50383776, 3.85046e-07, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 1
+
+[node name="GameModeSelect" type="Control" unique_id=568306690]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a2kli")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1710491372]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101960786, 0.22352941, 0.5019608, 1)
+
+[node name="Title" type="Label" parent="." unique_id=288545416]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -274.0
+offset_top = 22.0
+offset_right = 266.0
+offset_bottom = 84.0
+grow_horizontal = 2
+localize_numeral_system = false
+theme_override_colors/font_color = Color(1, 1, 0.5137255, 1)
+theme_override_fonts/font = ExtResource("2_6yqcd")
+theme_override_font_sizes/font_size = 44
+text = "Selecciona el modo de juego"
+
+[node name="CenterContainer" type="VBoxContainer" parent="." unique_id=1780959505]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -382.0
+offset_top = -247.0
+offset_right = 382.0
+offset_bottom = 327.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="BannerRow" type="HBoxContainer" parent="CenterContainer" unique_id=360240087]
+layout_mode = 2
+theme_override_constants/separation = 89
+alignment = 1
+
+[node name="PrevButton" type="Button" parent="CenterContainer/BannerRow" unique_id=478514019]
+custom_minimum_size = Vector2(90, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "◀"
+
+[node name="Banner" type="TextureRect" parent="CenterContainer/BannerRow" unique_id=275394044]
+custom_minimum_size = Vector2(1066, 600)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 6
+
+[node name="NextButton" type="Button" parent="CenterContainer/BannerRow" unique_id=1591622211]
+custom_minimum_size = Vector2(90, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "▶"
+
+[node name="ModeTitle" type="Label" parent="CenterContainer" unique_id=1857654550]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5372549, 1, 1, 1)
+theme_override_fonts/font = ExtResource("3_8s4q0")
+theme_override_font_sizes/font_size = 70
+horizontal_alignment = 1
+
+[node name="ModeDescription" type="Label" parent="CenterContainer" unique_id=403840803]
+custom_minimum_size = Vector2(640, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_jxh5l")
+theme_override_font_sizes/font_size = 42
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="." unique_id=45325250]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="StartButton" type="Button" parent="." unique_id=551055007]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.9250001
+anchor_top = 0.92800003
+anchor_right = 0.9250001
+anchor_bottom = 0.92800003
+offset_left = -169.50024
+offset_top = -101.24005
+offset_right = 70.999756
+offset_bottom = 24.840027
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("3_jxh5l")
+theme_override_font_sizes/font_size = 47
+theme_override_styles/normal = SubResource("StyleBoxFlat_8s4q0")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kocqj")
+text = "¡VAMOS!"

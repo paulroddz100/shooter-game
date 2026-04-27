@@ -7,17 +7,20 @@ extends Node3D
 @onready var multiplayer_chat: MultiplayerChatUI = $MultiplayerChatUI
 @onready var crosshair: CanvasLayer = $CanvasLayer
 
-# Agrega esta línea debajo
-const HUD_SCENE = preload("res://scenes/ui/HUD.tscn")
+const HUD_SCENE            = preload("res://scenes/ui/HUD.tscn")
 const CHARACTER_SELECT_SCENE = preload("res://scenes/ui/character_select.tscn")
-var _char_select: CharacterSelectUI = null
-var _hud: CanvasLayer = null
+const GAME_MODE_SCENE      = preload("res://scenes/ui/game_mode_select.tscn")
 
+var _char_select      : CharacterSelectUI  = null
+var _game_mode_select : GameModeSelectUI   = null
+var _hud              : CanvasLayer        = null
+
+var _pending_nickname  : String = ""
+var _pending_character : String = ""
 
 var chat_visible = false
 
 func _ready():
-	main_menu.open_character_select.connect(_on_open_character_select)
 	if DisplayServer.get_name() == "headless":
 		print("Dedicated server starting...")
 		Network.start_host("", "")
@@ -26,6 +29,7 @@ func _ready():
 	main_menu.show_menu()
 	multiplayer_chat.set_process_input(true)
 
+	# ── Señales ── (cada una conectada UNA sola vez)
 	main_menu.open_character_select.connect(_on_open_character_select)
 	main_menu.quit_pressed.connect(_on_quit_pressed)
 
@@ -53,13 +57,54 @@ func _on_server_disconnected():
 func _on_player_connected(peer_id, player_info):
 	_add_player(peer_id, player_info)
 
+# ── FLUJO: Menú → Selector de personaje ───────────────────
+func _on_open_character_select(nickname: String, address: String, is_host: bool) -> void:
+	main_menu.hide_menu()
+
+	if _char_select == null:
+		_char_select = CHARACTER_SELECT_SCENE.instantiate()
+		add_child(_char_select)
+		_char_select.host_confirmed.connect(_on_host_confirmed)
+		_char_select.join_confirmed.connect(_on_join_confirmed)
+
+	_char_select.setup(nickname, address, is_host)
+	_char_select.show()
+
+func show_main_menu_from_character_select() -> void:
+	if _char_select:
+		_char_select.hide()
+	main_menu.show_menu()
+
+# ── FLUJO: Selector de personaje → Selector de modo (solo host) ───
 func _on_host_confirmed(nickname: String, character: String) -> void:
 	if _char_select:
 		_char_select.hide()
-	crosshair.show()
-	_spawn_hud(nickname)
-	Network.start_host(nickname, character)
 
+	# Guardar datos hasta que el host elija el modo
+	_pending_nickname  = nickname
+	_pending_character = character
+
+	# Abrir selector de modo de juego
+	if _game_mode_select == null:
+		_game_mode_select = GAME_MODE_SCENE.instantiate()
+		add_child(_game_mode_select)
+		_game_mode_select.mode_confirmed.connect(_on_mode_confirmed)
+
+	_game_mode_select.show()
+
+# ── FLUJO: Selector de modo → Juego ───────────────────────
+func _on_mode_confirmed(mode_id: String) -> void:
+	if _game_mode_select:
+		_game_mode_select.hide()
+
+	crosshair.show()
+	_spawn_hud(_pending_nickname)
+	Network.start_host(_pending_nickname, _pending_character)
+
+	# Guardar modo para usarlo en el juego
+	GameManager.selected_mode = mode_id
+
+# ── FLUJO: Join → directo al juego (sin selector de modo) ─
 func _on_join_confirmed(nickname: String, character: String, address: String) -> void:
 	if _char_select:
 		_char_select.hide()
@@ -67,6 +112,7 @@ func _on_join_confirmed(nickname: String, character: String, address: String) ->
 	_spawn_hud(nickname)
 	Network.join_game(nickname, character, address)
 
+# ── Resto sin cambios ──────────────────────────────────────
 func _spawn_hud(nickname: String) -> void:
 	if _hud != null:
 		return
@@ -97,7 +143,7 @@ func _add_player(id: int, player_info: Dictionary):
 		var ab = _hud.get_action_buttons()
 		if ab:
 			ab.set_player(player)
-		
+
 func get_spawn_point() -> Vector3:
 	var spawn_point = Vector2.from_angle(randf() * 2 * PI) * 10
 	return Vector3(spawn_point.x, 0, spawn_point.y)
@@ -118,7 +164,6 @@ func get_local_player():
 		return players_container.get_node(str(local_player_id))
 	return null
 
-# ---------- CHAT ----------
 func toggle_chat():
 	if main_menu.is_menu_visible():
 		return
@@ -149,11 +194,11 @@ func msg_rpc(nick, msg):
 
 func _load_character_data(character_id: String) -> CharacterData:
 	var paths = {
-		"amy": "res://assets/characters/team_a/Amy/amy.tres",
-		"michelle": "res://assets/characters/team_a/Michelle/michelle.tres",
-		"ortiz": "res://assets/characters/team_a/Ortiz/ortiz.tres",
+		"amy":       "res://assets/characters/team_a/Amy/amy.tres",
+		"michelle":  "res://assets/characters/team_a/Michelle/michelle.tres",
+		"ortiz":     "res://assets/characters/team_a/Ortiz/ortiz.tres",
 		"big_vegas": "res://assets/characters/team_b/Big Vegas/big_vegas.tres",
-		"mousey": "res://assets/characters/team_b/Mousey/mousey.tres"
+		"mousey":    "res://assets/characters/team_b/Mousey/mousey.tres"
 	}
 	if character_id in paths:
 		return load(paths[character_id])
@@ -170,19 +215,3 @@ func broadcast_respawn(player_name: String) -> void:
 	var player = players_container.get_node_or_null(player_name)
 	if player:
 		player.do_respawn()
-
-func _on_open_character_select(nickname: String, address: String, is_host: bool) -> void:
-	main_menu.hide_menu()
-	
-	if _char_select == null:
-		_char_select = CHARACTER_SELECT_SCENE.instantiate()
-		add_child(_char_select)
-		_char_select.host_confirmed.connect(_on_host_confirmed)
-		_char_select.join_confirmed.connect(_on_join_confirmed)
-	_char_select.setup(nickname, address, is_host)
-	_char_select.show()
-
-func show_main_menu_from_character_select() -> void:
-	if _char_select:
-		_char_select.hide()
-	main_menu.show_menu()

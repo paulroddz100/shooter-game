@@ -108,8 +108,12 @@ layout_mode = 2
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_fonts/font = ExtResource("2_atyv1")
 theme_override_font_sizes/font_size = 55
-text = "     100"
+text = "100 "
 vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer/HBoxContainer/LifeContainer" unique_id=842367999]
+layout_mode = 2
+text = "  "
 
 [node name="AmmoContainer" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer/HBoxContainer" unique_id=601675829]
 layout_mode = 2

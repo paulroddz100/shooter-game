@@ -24,6 +24,7 @@ config/icon="uid://bl6rysfifkjyu"
 [autoload]
 
 Network="*res://scripts/network.gd"
+GameManager="*uid://dubekvvv6is2n"
 
 [display]
 
