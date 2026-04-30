@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://b0plr2qqt7i6l"]
+
+[ext_resource type="Script" uid="uid://bunvliqxfw8br" path="res://scripts/character_data.gd" id="1_ju2tx"]
+[ext_resource type="PackedScene" uid="uid://daafgkiqb7ata" path="res://assets/characters/team_a/Kaya/KAYA_MODEL.glb" id="1_yepbp"]
+
+[resource]
+script = ExtResource("1_ju2tx")
+model_scene = ExtResource("1_yepbp")
+preview_scale = 0.87
+metadata/_custom_type_script = "uid://bunvliqxfw8br"

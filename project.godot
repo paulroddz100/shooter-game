@@ -14,7 +14,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
-config/name="MiniShooter"
+config/name="FunkyToons"
 config/description="Videojuego online 3d, hecho en base a una plantilla"
 config/tags=PackedStringArray("3d", "network")
 run/main_scene="res://scenes/level/level.tscn"

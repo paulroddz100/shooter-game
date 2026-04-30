@@ -2,7 +2,7 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ghmqug4hunqy"
+uid="uid://dlas5nfq0ukq0"
 path.s3tc="res://.godot/imported/MICHELLE_MODEL_Ch03_1001_Normal.png-7a4a230370eeaa6c69a71bba995eba85.s3tc.ctex"
 path.etc2="res://.godot/imported/MICHELLE_MODEL_Ch03_1001_Normal.png-7a4a230370eeaa6c69a71bba995eba85.etc2.ctex"
 metadata={
@@ -31,7 +31,7 @@ compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=1
-roughness/src_normal="res://assets/models/characters/faction_01/Michelle/MICHELLE_MODEL_Ch03_1001_Normal.png"
+roughness/src_normal="res://assets/characters/team_a/Michelle/MICHELLE_MODEL_Ch03_1001_Normal.png"
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2

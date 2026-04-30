@@ -101,6 +101,7 @@ theme_override_constants/separation = 10
 [node name="CharBtn1" type="Button" parent="VBoxContainer" unique_id=1775876803]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_focus_color = Color(0.90588236, 1, 0, 1)
 theme_override_fonts/font = ExtResource("3_gp4m6")
 theme_override_font_sizes/font_size = 47
 text = "PERSONAJE 1"
@@ -108,6 +109,7 @@ text = "PERSONAJE 1"
 [node name="CharBtn2" type="Button" parent="VBoxContainer" unique_id=421024129]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_focus_color = Color(0.90588236, 1, 0, 1)
 theme_override_fonts/font = ExtResource("3_gp4m6")
 theme_override_font_sizes/font_size = 47
 text = "PERSONAJE 1"
@@ -115,6 +117,7 @@ text = "PERSONAJE 1"
 [node name="CharBtn3" type="Button" parent="VBoxContainer" unique_id=447164348]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_focus_color = Color(0.90588236, 1, 0, 1)
 theme_override_fonts/font = ExtResource("3_gp4m6")
 theme_override_font_sizes/font_size = 47
 text = "PERSONAJE 1"
@@ -122,6 +125,7 @@ text = "PERSONAJE 1"
 [node name="CharBtn4" type="Button" parent="VBoxContainer" unique_id=30177988]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_colors/font_focus_color = Color(0.90588236, 1, 0, 1)
 theme_override_fonts/font = ExtResource("3_gp4m6")
 theme_override_font_sizes/font_size = 47
 text = "PERSONAJE 1"

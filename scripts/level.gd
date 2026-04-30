@@ -198,6 +198,7 @@ func _load_character_data(character_id: String) -> CharacterData:
 		"michelle":  "res://assets/characters/team_a/Michelle/michelle.tres",
 		"ortiz":     "res://assets/characters/team_a/Ortiz/ortiz.tres",
 		"big_vegas": "res://assets/characters/team_b/Big Vegas/big_vegas.tres",
+		"kaya": "res://assets/characters/team_a/Kaya/kaya.tres",
 		"mousey":    "res://assets/characters/team_b/Mousey/mousey.tres"
 	}
 	if character_id in paths:
