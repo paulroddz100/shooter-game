@@ -18,7 +18,7 @@ var _showing_gear: bool = false
 var _left_joystick_active: bool = false
 
 @onready var _dpad: DPad = $MarginContainer/DPad
-@onready var _action_buttons: ActionButtons = $ActionButtons
+@onready var _action_buttons: ActionButtons = $MarginContainer2/ActionButtons
 
 func get_action_buttons() -> ActionButtons:
 	return _action_buttons
