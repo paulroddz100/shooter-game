@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://bn0cjpb6wmh3f" path="res://assets/fonts/Insanibu.ttf" id="2_atyv1"]
 [ext_resource type="Script" uid="uid://bosjyvlk5iwj7" path="res://scripts/dpad.gd" id="4_ig75s"]
 [ext_resource type="Script" uid="uid://br4q85pehos12" path="res://scenes/ui/action_buttons.gd" id="5_4ed8p"]
+[ext_resource type="FontFile" uid="uid://b0o8cc8bstntp" path="res://assets/fonts/Toony.ttf" id="6_rnyu1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_atyv1"]
 content_margin_left = 6.0
@@ -50,6 +51,23 @@ corner_detail = 4
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rnyu1"]
 bg_color = Color(0.39688924, 0.39688927, 0.3968891, 1)
 border_color = Color(0, 0.25490198, 0.85882354, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlufg"]
+bg_color = Color(0, 0.49411765, 0.67058825, 0.92156863)
+corner_radius_top_left = 28
+corner_radius_top_right = 6
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 28
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l20r4"]
+bg_color = Color(0.9490196, 0.8117647, 0, 0.92156863)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jvmx1"]
+bg_color = Color(0.8117647, 0.16862746, 0, 0.92156863)
+corner_radius_top_left = 8
+corner_radius_top_right = 28
+corner_radius_bottom_right = 28
+corner_radius_bottom_left = 8
 
 [node name="CanvasLayer" type="CanvasLayer" unique_id=688099910]
 script = ExtResource("1_kw0id")
@@ -293,3 +311,65 @@ theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_4ed8p")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_rnyu1")
 text = "B"
+
+[node name="MatchUI" type="Control" parent="." unique_id=1875030550]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreboardContainer" type="HBoxContainer" parent="MatchUI" unique_id=1524832487]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -304.0
+offset_top = 10.0
+offset_right = 304.0
+offset_bottom = 100.0
+grow_horizontal = 2
+
+[node name="ScoreAPanel" type="PanelContainer" parent="MatchUI/ScoreboardContainer" unique_id=1991743330]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jlufg")
+
+[node name="ScoreA" type="Label" parent="MatchUI/ScoreboardContainer/ScoreAPanel" unique_id=2067660635]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 5
+theme_override_fonts/font = ExtResource("2_6ll6g")
+theme_override_font_sizes/font_size = 53
+text = "0"
+horizontal_alignment = 1
+
+[node name="CenterPanel" type="PanelContainer" parent="MatchUI/ScoreboardContainer" unique_id=2062100615]
+custom_minimum_size = Vector2(100, 10)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l20r4")
+
+[node name="CenterLabel" type="Label" parent="MatchUI/ScoreboardContainer/CenterPanel" unique_id=867440640]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 5
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_rnyu1")
+theme_override_font_sizes/font_size = 50
+text = "vs."
+horizontal_alignment = 1
+
+[node name="ScoreBPanel" type="PanelContainer" parent="MatchUI/ScoreboardContainer" unique_id=569325122]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_jvmx1")
+
+[node name="ScoreB" type="Label" parent="MatchUI/ScoreboardContainer/ScoreBPanel" unique_id=518663181]
+layout_mode = 2
+size_flags_horizontal = 5
+theme_override_fonts/font = ExtResource("2_6ll6g")
+theme_override_font_sizes/font_size = 53
+text = "0"
+horizontal_alignment = 1

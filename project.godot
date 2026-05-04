@@ -25,6 +25,7 @@ config/icon="uid://bl6rysfifkjyu"
 
 Network="*res://scripts/network.gd"
 GameManager="*uid://dubekvvv6is2n"
+UserPreferences="*uid://bluospl12y44y"
 
 [display]
 

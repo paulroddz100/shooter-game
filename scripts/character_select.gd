@@ -155,9 +155,54 @@ func _on_back_pressed() -> void:
 	hide()
 	get_parent().show_main_menu_from_character_select()
 
+
+# ──────────────────────────────────────────────────────────────────────
+# CONFIRMACIÓN CON VALIDACIÓN DE BANDO
+# ──────────────────────────────────────────────────────────────────────
 func _on_start_pressed() -> void:
-	var char_id : String = CHARACTERS[_current_bando][_current_idx]["id"]
+	var char_data : Dictionary = CHARACTERS[_current_bando][_current_idx]
+	var char_id : String = char_data["id"]
+
+	# Validar que el personaje no sea un placeholder bloqueado
+	if char_data.get("scene", "") == "":
+		_show_error("Personaje no disponible")
+		return
+
+	# Validación de bando solo para clientes (no para el host).
+	# El host inicia primero y siempre tiene espacio en su bando.
+	if not _is_host:
+		var target_team: int
+		if _current_bando == "bando1":
+			target_team = GameManager.Team.TEAM_A
+		else:
+			target_team = GameManager.Team.TEAM_B
+
+		if not GameManager.can_join_team(target_team):
+			_show_error("Este bando está lleno o desbalancearía los equipos.\nPor favor elige el otro bando.")
+			return
+
+	# Confirmar selección
 	if _is_host:
 		host_confirmed.emit(_nickname, char_id)
 	else:
 		join_confirmed.emit(_nickname, char_id, _address)
+
+
+# Muestra un mensaje temporal en pantalla durante 3 segundos
+func _show_error(message: String) -> void:
+	var error_label := Label.new()
+	error_label.text = message
+	error_label.add_theme_color_override("font_color", Color(1, 0.4, 0.4))
+	error_label.add_theme_font_size_override("font_size", 20)
+	error_label.position = Vector2(
+		get_viewport().get_visible_rect().size.x / 2 - 200,
+		get_viewport().get_visible_rect().size.y - 150
+	)
+	error_label.size = Vector2(400, 60)
+	error_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	error_label.autowrap_mode = TextServer.AUTOWRAP_WORD
+	add_child(error_label)
+
+	await get_tree().create_timer(3.0).timeout
+	if is_instance_valid(error_label):
+		error_label.queue_free()

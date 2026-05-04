@@ -31,6 +31,8 @@ var _shoot_timer: float = 0.0
 var _is_respawning: bool = false
 var ammo_current: int = 50
 var ammo_reserve: int = 50
+var _underdog_buff_applied: bool = false
+var _damage_multiplier: float = 1.0   # se multiplica al daño que infligimos
  
 # Touch input (móvil)
 var _cam_touch_index: int = -1
@@ -129,6 +131,19 @@ func _ready() -> void:
 		_camera_yaw = PI
 		_apply_camera_rotation()
 		$SpringArmOffset/SpringArm3D.spring_length = CAMERA_DISTANCE
+	
+	GameManager.match_started.connect(_on_match_started)
+
+func _on_match_started() -> void:
+	# Solo el servidor aplica el buff (es autoritativo de la salud)
+	if not multiplayer.is_server():
+		return
+ 
+	var my_id := str(name).to_int()
+	if GameManager.should_apply_underdog_buff(my_id):
+		_apply_underdog_buff.rpc(true)
+	else:
+		_apply_underdog_buff.rpc(false)
  
  
 func _setup_replication_config() -> void:
@@ -423,19 +438,25 @@ func take_damage(amount: float, attacker_id: int) -> void:
 		_play_death_local()
 		get_tree().current_scene.broadcast_death.rpc(name)
  
-		# CAMBIO: Verificación de validez ANTES y DESPUÉS del await.
-		# Si el jugador se desconecta durante el respawn, no crashea.
+		# CAMBIO 4: Reportar la muerte al GameManager
+		var victim_id := str(name).to_int()
+		GameManager.report_kill(victim_id, attacker_id)
+ 
+		# Solo respawnear si la partida sigue en progreso
 		await get_tree().create_timer(RESPAWN_TIME).timeout
 		if not is_instance_valid(self):
 			return
 		if not is_inside_tree():
 			return
- 
+		# CAMBIO 4b: No respawnear si la partida terminó
+		if GameManager.match_state == GameManager.MatchState.ENDED:
+			return
 		_is_respawning = false
 		get_tree().current_scene.broadcast_respawn.rpc(name)
 		do_respawn()
 	else:
 		on_hit.rpc()
+ 
  
  
 @rpc("any_peer", "call_local", "reliable")
@@ -447,6 +468,15 @@ func sync_health(new_health: float) -> void:
 func on_hit() -> void:
 	if _body:
 		_body.play_injured_animation()
+
+@rpc("authority", "reliable", "call_local")
+func _apply_underdog_buff(enable: bool) -> void:
+	if enable and not _underdog_buff_applied:
+		max_health *= GameManager.UNDERDOG_HEALTH_MULTIPLIER
+		health = max_health
+		_damage_multiplier = GameManager.UNDERDOG_DAMAGE_MULTIPLIER
+		_underdog_buff_applied = true
+		print("[Player] Buff de desventaja aplicado a '%s'" % name)
  
  
 @rpc("any_peer", "call_local", "reliable")
@@ -505,7 +535,7 @@ func _shoot() -> void:
 	bullet.setup(muzzle_pos, impact_point)
  
 	# Aplicar daño (vía server)
-	var damage = character_data.damage if character_data else 25.0
+	var damage = (character_data.damage if character_data else 25.0) * _damage_multiplier
 	if hit_target:
 		if multiplayer.is_server():
 			hit_target.take_damage(damage, multiplayer.get_unique_id())
